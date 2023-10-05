@@ -1,0 +1,738 @@
+openapi: 3.0.3
+info:
+  title: BudgetProfi
+  version: 1.0.0
+tags:
+  - name: Пользователи
+    description: Управление пользователями приложения
+  - name: Авторизация
+    description: Управление пользовательскими сессиями
+  - name: Планы
+    description: Управление планами бюджета
+  - name: Доходы
+    description: Управление доходами
+  - name: Расходы
+    description: Управление расходами
+paths:
+  /api/v1/users:
+    put:
+      tags:
+        - Пользователи
+      summary: Создать пользователя
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequestDto'
+      responses:
+        '201':
+          description: Пользователь создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponseDto'
+        '409':
+          description: Пользователь с таким логином уже существует
+  /api/v1/login:
+    put:
+      tags:
+        - Авторизация
+      summary: Авторизоваться
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequestDto'
+      responses:
+        '200':
+          description: Авторизация уже существовала
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponseDto'
+        '201':
+          description: Авторизован
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponseDto'
+        '401':
+          description: Не удалось авторизоваться
+    delete:
+      tags:
+        - Авторизация
+      summary: Закончить авторизационную сессию
+      responses:
+        '200':
+          description: Авторизацианная сессия завершена
+        '401':
+          description: Авторизационная сессия не найдена
+  /api/v1/plans:
+    post:
+      tags:
+        - Планы
+      summary: Создать новый план
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePlanRequestDto'
+      responses:
+        '201':
+          description: План создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePlanResponseDto'
+        '400':
+          description: Ошибка валидации данных
+        '401':
+          description: Требуется авторизация
+    get:
+      tags:
+        - Планы
+      summary: Получить список планов
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlanPreviewDto'
+          description: Список планов
+        '401':
+          description: Требуется авторизация
+  /api/v1/plans/{planId}:
+    parameters:
+      - in: path
+        name: planId
+        schema:
+          type: string
+        required: true
+    get:
+      tags:
+        - Планы
+      summary: Получить план
+      responses:
+        '200':
+          description: План создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanDto'
+        '401':
+          description: Требуется авторизация
+        '404':
+          description: План с переданным ID не найден
+    delete:
+      tags:
+        - Планы
+      summary: Удалить план
+      responses:
+        '200':
+          description: План удалён
+        '401':
+          description: Требуется авторизация
+        '404':
+          description: План с переданным ID не найден
+  /api/v1/plans/{planId}/today:
+    parameters:
+      - in: path
+        name: planId
+        schema:
+          type: string
+        required: true
+    get:
+      tags:
+        - Планы
+      summary: Получить статистику на текущий день
+      responses:
+        '200':
+          description: Статистика на текущий день
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTodayPlanResponseDto'
+  /api/v1/plans/{planId}/incomes:
+    parameters:
+      - in: path
+        name: planId
+        schema:
+          type: string
+        required: true
+    post:
+      tags:
+        - Доходы
+      summary: Добавить новый доход в план
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIncomeDto'
+      responses:
+        '201':
+          description: Доход добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePlanResponseDto'
+        '400':
+          description: Ошибка валидации данных
+        '401':
+          description: Требуется авторизация
+        '404':
+          description: План не найден
+  /api/v1/plans/{planId}/incomes/{incomeId}:
+    parameters:
+      - in: path
+        name: planId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: incomeId
+        schema:
+          type: string
+        required: true
+    delete:
+      tags:
+        - Доходы
+      summary: Удалить доход из плана
+      responses:
+        '200':
+          description: Пополнение удалено
+        '401':
+          description: Требуется авторизация
+        '404':
+          description: План или доход не найдены
+  /api/v1/plans/{planId}/daily-incomes:
+    parameters:
+      - in: path
+        name: planId
+        schema:
+          type: string
+        required: true
+    post:
+      tags:
+        - Доходы
+      summary: Добавить новый незапланированный доход
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDailyIncomeRequestDto'
+      responses:
+        '201':
+          description: Доход добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePlanResponseDto'
+        '400':
+          description: Ошибка валидации данных
+        '401':
+          description: Требуется авторизация
+        '404':
+          description: План не найден
+  /api/v1/plans/{planId}/daily-incomes/{dailyIncomeId}:
+    parameters:
+      - in: path
+        name: planId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: dailyIncomeId
+        schema:
+          type: string
+        required: true
+    delete:
+      tags:
+        - Доходы
+      summary: Удалить незапланированный доход
+      responses:
+        '200':
+          description: Пополнение удалено
+        '401':
+          description: Требуется авторизация
+        '404':
+          description: План или доход не найдены
+  /api/v1/plans/{planId}/outcomes:
+    parameters:
+      - in: path
+        name: planId
+        schema:
+          type: string
+        required: true
+    post:
+      tags:
+        - Расходы
+      summary: Добавить новый расход в план
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOutcomeDto'
+      responses:
+        '201':
+          description: Поступление добавлено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePlanResponseDto'
+        '400':
+          description: Ошибка валидации данных
+        '401':
+          description: Требуется авторизация
+        '404':
+          description: План не найден
+  /api/v1/plans/{planId}/outcomes/{dailyOutcomeId}:
+    parameters:
+      - in: path
+        name: planId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: dailyOutcomeId
+        schema:
+          type: string
+        required: true
+    delete:
+      tags:
+        - Расходы
+      summary: Удалить расход из плана
+      responses:
+        '200':
+          description: Расход удалён
+        '401':
+          description: Требуется авторизация
+        '404':
+          description: План или расход не найдены
+  /api/v1/plans/{planId}/daily-outcomes:
+    parameters:
+      - in: path
+        name: planId
+        schema:
+          type: string
+        required: true
+    post:
+      tags:
+        - Расходы
+      summary: Добавить новый незапланированный расход
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDailyOutcomeRequestDto'
+      responses:
+        '201':
+          description: Расход добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePlanResponseDto'
+        '400':
+          description: Ошибка валидации данных
+        '401':
+          description: Требуется авторизация
+        '404':
+          description: План не найден
+  /api/v1/plans/{planId}/daily-outcomes/{dailyOutcomeId}:
+    parameters:
+      - in: path
+        name: planId
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: dailyOutcomeId
+        schema:
+          type: string
+        required: true
+    delete:
+      tags:
+        - Расходы
+      summary: Удалить незапланированный расход
+      responses:
+        '200':
+          description: Расход удалён
+        '401':
+          description: Требуется авторизация
+        '404':
+          description: План или расход не найдены
+components:
+  schemas:
+    GetTodayPlanResponseDto:
+      type: object
+      required:
+        - daily_balance
+        - today_balance
+        - incomes
+        - outcomes
+      properties:
+        daily_balance:
+          type: integer
+          description: Запланированный баланс на день
+          example: 700
+        today_balance:
+          type: integer
+          description: Сегодняшний остаток
+          example: 350
+        incomes:
+          type: array
+          description: Пополнения за сегодня
+          items:
+            $ref: '#/components/schemas/DailyIncomeDto'
+        outcomes:
+          type: array
+          description: Списания за сегодня
+          items:
+            $ref: '#/components/schemas/DailyOutcomeDto'
+    LoginRequestDto:
+      type: object
+      required:
+        - login
+        - password
+      properties:
+        login:
+          type: string
+          description: Логин
+          example: kawwik
+        password:
+          type: string
+          description: Пароль
+          example: 12345
+    LoginResponseDto:
+      type: object
+      description: Ответ на авторизационный запрос
+      required:
+        - token
+      properties:
+        token:
+          type: string
+          example: a12972b6-d769-4f3a-a3ab-f1602096950f
+          description: Авторизационный токен
+    PlanDto:
+      type: object
+      description: План
+      required:
+        - id
+        - start_date
+        - end_date
+        - initial_balance
+        - current_balance
+        - current_daily_balance
+        - incomes
+        - outcomes
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
+          description: ID плана
+        start_date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: Дата начала периода
+        end_date:
+          type: string
+          format: datetime
+          example: 31.10.2023
+          description: Дата окончания периода
+        initial_balance:
+          type: integer
+          description: Сумма на начало периода
+          example: 10000
+        current_balance:
+          type: integer
+          description: Текущий баланс
+        current_daily_balance:
+          type: integer
+          description: Текущий дневной баланс
+        incomes:
+          type: array
+          description: Запланированные пополнения
+          items:
+            $ref: '#/components/schemas/IncomeDto'
+        outcomes:
+          type: array
+          description: Запланированные списания
+          items:
+            $ref: '#/components/schemas/OutcomeDto'
+    DailyOutcomeDto:
+      type: object
+      description: Модель незапланированного расхода
+      required:
+        - id
+        - date
+        - sum
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
+          description: ID списания
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: День списания
+        sum:
+          type: integer
+          description: Сумма списания
+          example: 945
+        name:
+          type: string
+          description: Название списания
+          example: Продукты
+    CreateDailyOutcomeRequestDto:
+      type: object
+      description: DTO создания незапланированного расхода
+      required:
+        - date
+        - sum
+        - name
+      properties:
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: День списания
+        sum:
+          type: integer
+          description: Сумма списания
+          example: 945
+        name:
+          type: string
+          description: Название списания
+          example: Продукты
+    DailyIncomeDto:
+      type: object
+      description: Модель незапланированного пополнения
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
+          description: ID пополнения
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: День пополнения
+        sum:
+          type: integer
+          description: Сумма пополнения
+          example: 1000
+        name:
+          type: string
+          description: Название пополнения
+          example: Продажа тумбочки
+    CreateDailyIncomeRequestDto:
+      type: object
+      required:
+        - id
+        - date
+        - sum
+        - name
+      properties:
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: День пополнения
+        sum:
+          type: integer
+          description: Сумма пополнения
+          example: 1000
+        name:
+          type: string
+          description: Название пополнения
+          example: Продажа тумбочки
+    CreateIncomeDto:
+      type: object
+      required:
+        - date
+        - sum
+        - name
+      properties:
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: День пополнения
+        sum:
+          type: integer
+          description: Сумма пополнения
+          example: 100000
+        name:
+          type: string
+          description: Название пополнения
+          example: Зарплата
+    IncomeDto:
+      type: object
+      required:
+        - id
+        - date
+        - sum
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
+          description: ID пополнения
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: День пополнения
+        sum:
+          type: integer
+          description: Сумма пополнения
+          example: 100000
+        name:
+          type: string
+          description: Название пополнения
+          example: Зарплата
+    CreateOutcomeDto:
+      type: object
+      description: DTO для создания запланированного расхода
+      required:
+        - date
+        - sum
+        - name
+      properties:
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: День списания
+        sum:
+          type: integer
+          description: Сумма списания
+          example: 600
+        name:
+          type: string
+          description: Название списания
+          example: Плата за интернет
+    OutcomeDto:
+      type: object
+      description: Модель запланированного расхода
+      required:
+        - id
+        - date
+        - sum
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
+          description: ID списания
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: День списания
+        sum:
+          type: integer
+          description: Сумма списания
+          example: 600
+        name:
+          type: string
+          description: Название списания
+          example: Плата за интернет
+    CreatePlanRequestDto:
+      type: object
+      description: DTO с данными для создания плана
+      required:
+        - start_date
+        - end_date
+        - initial_balance
+      properties:
+        start_date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: Дата начала периода
+        end_date:
+          type: string
+          format: datetime
+          example: 31.10.2023
+          description: Дата окончания периода
+        initial_balance:
+          type: integer
+          description: Сумма на начало периода
+          example: 10000
+    CreatePlanResponseDto:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID созданного плана
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
+    CreateUserRequestDto:
+      type: object
+      required:
+        - login
+        - password
+      properties:
+        login:
+          type: string
+          description: Логин
+          example: kawwik
+        password:
+          type: string
+          description: Пароль
+          example: 12345
+    CreateUserResponseDto:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID созданного пользователя
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
+    PlanPreviewDto:
+      type: object
+      description: Модель предпросмотра плана для отображения в списке
+      required:
+        - id
+        - start_date
+        - end_date
+        - current_balance
+        - is_actual
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
+          description: ID плана
+        start_date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: Дата начала периода
+        end_date:
+          type: string
+          format: datetime
+          example: 31.10.2023
+          description: Дата окончания периода
+        current_balance:
+          type: integer
+          description: Текущий баланс
+          example: 15600
+        is_actual:
+          type: boolean
+          description: Активен ли данный план сейчас
+          example: true
