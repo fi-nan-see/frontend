@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Observable, Subject} from "rxjs";
 import {select, Store} from "@ngrx/store";
-import {AuthorizationService, AuthorizationState, LoginUser, User} from 'projects/libs/authorization';
+import {AuthorizationService, AuthorizationState, LoginUser, LogoutUser, User} from 'projects/libs/authorization';
 
 @Component({
   selector: 'authorization-form',
@@ -13,6 +13,8 @@ export class AuthorizationFormComponent {
   password: string = '';
 
   loginButtonClick$ = new Subject<void>();
+  logoutButtonClick$ = new Subject<void>();
+
   user$: Observable<User | null>;
 
   constructor(
@@ -24,6 +26,13 @@ export class AuthorizationFormComponent {
       _ => {
         const user = this.authService.authorize(this.login, this.password);
         this.store.dispatch(new LoginUser(user));
+      }
+    );
+
+    this.logoutButtonClick$.pipe().subscribe(
+      _ => {
+        this.authService.logout();
+        this.store.dispatch(new LogoutUser());
       }
     )
   }

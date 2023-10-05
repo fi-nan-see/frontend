@@ -8,4 +8,7 @@ export class AuthorizationService {
   public authorize(login: string, password: string): User {
     return {name: login}
   }
+
+  public logout() {
+  }
 }
