@@ -1,0 +1,13 @@
+.authorization-form {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  gap: 10px;
+}
+
+.authorization-inputs {
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  gap: 5px;
+}
