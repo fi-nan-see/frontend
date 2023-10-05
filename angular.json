@@ -93,6 +93,42 @@
           }
         }
       }
+    },
+    "@libs/authorization": {
+      "projectType": "library",
+      "root": "projects/libs/authorization",
+      "sourceRoot": "projects/libs/authorization/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/libs/authorization/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/libs/authorization/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/libs/authorization/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/libs/authorization/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
