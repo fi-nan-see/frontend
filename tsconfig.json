@@ -5,6 +5,9 @@
     "paths": {
       "@libs/authorization": [
         "dist/libs/authorization"
+      ],
+      "@libs/authorization-form": [
+        "dist/libs/authorization-form"
       ]
     },
     "baseUrl": "./",
