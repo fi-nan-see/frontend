@@ -1,5 +1,5 @@
 import {User} from "../models";
 
-export interface UserState {
+export interface AuthorizationState {
   readonly user: User | null;
 }
