@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { AuthorizationFormComponent } from './authorization-form.component';
 import { AuthorizationService } from 'projects/libs/authorization';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AsyncPipe, NgIf} from "@angular/common";
+import {TuiInputModule, TuiInputPasswordModule} from "@taiga-ui/kit";
+import {TuiHintModule, TuiTextfieldControllerModule} from "@taiga-ui/core";
 
 @NgModule({
   declarations: [
@@ -11,7 +13,12 @@ import {AsyncPipe, NgIf} from "@angular/common";
   imports: [
     FormsModule,
     NgIf,
-    AsyncPipe
+    AsyncPipe,
+    TuiInputPasswordModule,
+    ReactiveFormsModule,
+    TuiHintModule,
+    TuiInputModule,
+    TuiTextfieldControllerModule
   ],
   exports: [
     AuthorizationFormComponent

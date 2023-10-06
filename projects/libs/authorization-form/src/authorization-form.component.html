@@ -10,11 +10,33 @@
 <ng-template #unauthorized>
   <div class="authorization-form">
     <div class="authorization-inputs">
-      <input placeholder="Логин" [(ngModel)]="login" >
-      <input type="password" placeholder="Пароль" [(ngModel)]="password">
+      <form
+        class="b-form"
+        [formGroup]="loginForm"
+      >
+        <tui-input
+          formControlName="login"
+          tuiTextfieldSize="s"
+        >
+          Логин
+          <input
+            tuiTextfield
+          />
+        </tui-input>
+
+        <tui-input-password
+          style="margin-top: 10px"
+          formControlName="password"
+          tuiTextfieldSize="s"
+        >
+          Пароль
+          <input tuiTextfield/>
+        </tui-input-password>
+      </form>
+
     </div>
 
-    <button (click)="loginButtonClick$.next()" >Войти</button>
+    <button (click)="loginButtonClick$.next()">Войти</button>
   </div>
 </ng-template>
 
