@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {Observable, Subject} from "rxjs";
+import {Component, OnDestroy} from '@angular/core';
+import {Observable, Subject, takeUntil} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import {AuthorizationService, AuthorizationState, LoginUser, LogoutUser, User} from 'projects/libs/authorization';
 
@@ -8,7 +8,7 @@ import {AuthorizationService, AuthorizationState, LoginUser, LogoutUser, User} f
   templateUrl: `authorization-form.component.html`,
   styleUrls: ['authorization-form.component.css']
 })
-export class AuthorizationFormComponent {
+export class AuthorizationFormComponent implements OnDestroy {
   login: string = '';
   password: string = '';
 
@@ -17,23 +17,30 @@ export class AuthorizationFormComponent {
 
   user$: Observable<User | null>;
 
+  destroy$ = new Subject<void>();
+
   constructor(
     private readonly authService: AuthorizationService,
     private readonly store: Store<AuthorizationState>) {
     this.user$ = store.pipe(select('user'));
 
-    this.loginButtonClick$.pipe().subscribe(
+    this.loginButtonClick$.pipe(takeUntil(this.destroy$)).subscribe(
       _ => {
         const user = this.authService.authorize(this.login, this.password);
         this.store.dispatch(new LoginUser(user));
       }
     );
 
-    this.logoutButtonClick$.pipe().subscribe(
+    this.logoutButtonClick$.pipe(takeUntil(this.destroy$)).subscribe(
       _ => {
         this.authService.logout();
         this.store.dispatch(new LogoutUser());
       }
     )
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
