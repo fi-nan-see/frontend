@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {User} from "../models";
 import {Store} from "@ngrx/store";
 import {AuthorizationState} from "../states";
 import {LoginUser, LogoutUser} from "../actions";

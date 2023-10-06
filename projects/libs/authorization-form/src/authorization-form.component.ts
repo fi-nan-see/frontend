@@ -1,7 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
 import {Observable, Subject, takeUntil} from "rxjs";
 import {select, Store} from "@ngrx/store";
-import {AuthorizationService, AuthorizationState, LoginUser, LogoutUser, User} from 'projects/libs/authorization';
+import {AuthorizationService, AuthorizationState, User} from 'projects/libs/authorization';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -23,7 +23,7 @@ export class AuthorizationFormComponent implements OnDestroy {
   });
 
   constructor(private readonly authService: AuthorizationService,
-              private readonly store: Store<AuthorizationState>) {
+              store: Store<AuthorizationState>) {
 
     this.user$ = store.pipe(select('user'));
 
