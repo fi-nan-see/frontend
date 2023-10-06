@@ -3,6 +3,10 @@
   background-color: aqua;
 }
 
+.body {
+  margin-top: 20px;
+}
+
 .authorization-form {
   display: flex;
   flex-direction: column;

@@ -8,6 +8,12 @@
       ],
       "@libs/authorization-form": [
         "dist/libs/authorization-form"
+      ],
+      "@libs/plan-list": [
+        "dist/libs/plan-list"
+      ],
+      "@libs/utils": [
+        "dist/libs/utils"
       ]
     },
     "baseUrl": "./",

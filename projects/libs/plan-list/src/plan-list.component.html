@@ -1,0 +1,5 @@
+<div class="plan-list">
+  <ng-container *ngFor="let planPreview of planPreviews$ | async">
+    <plan-preview class="plan-list__item" [planPreview]="planPreview"></plan-preview>
+  </ng-container>
+</div>

@@ -36,7 +36,7 @@ export class AuthorizationFormComponent implements OnDestroy {
         this.authService.logout();
         this.store.dispatch(new LogoutUser());
       }
-    )
+    );
   }
 
   ngOnDestroy(): void {
