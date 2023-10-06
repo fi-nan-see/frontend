@@ -9,6 +9,9 @@
       "@libs/authorization-form": [
         "dist/libs/authorization-form"
       ],
+      "@libs/navigation": [
+        "dist/libs/navigation"
+      ],
       "@libs/plan-list": [
         "dist/libs/plan-list"
       ],

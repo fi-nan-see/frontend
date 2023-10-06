@@ -1,6 +1,6 @@
 <tui-root>
   <div class="header">
-    <h1 class="logo" routerLink="/" routerLinkActive="active">BudgetProfi</h1>
+    <h1 class="logo" routerLink="/" routerLinkActive="active">{{title}}</h1>
 
     <div class="authorization-form">
       <authorization-form></authorization-form>
@@ -8,7 +8,7 @@
   </div>
 
   <div class="body">
-    <app-navigation class="navigation"></app-navigation>
+    <navigation class="navigation"></navigation>
     <router-outlet></router-outlet>
   </div>
 

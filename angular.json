@@ -233,6 +233,39 @@
           }
         }
       }
+    },
+    "@libs/navigation": {
+      "projectType": "library",
+      "root": "projects/libs/navigation",
+      "sourceRoot": "projects/libs/navigation/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/libs/navigation/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/libs/navigation/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/libs/navigation/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/libs/navigation/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {
