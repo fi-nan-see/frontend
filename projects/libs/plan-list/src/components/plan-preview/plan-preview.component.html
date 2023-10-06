@@ -5,7 +5,7 @@
     {{planPreview.isActual ? "Баланс" : "Остаток"}}: {{planPreview.currentBalance}} руб.
   </p>
 
-  <div style="display: flex; flex-direction: row; margin-top: auto">
+  <div style="display: flex; flex-direction: row; margin-top: auto; align-items: baseline">
     <p class="tui-island__paragraph tui-island__paragraph_link">
       <a routerLink="/plan/{{planPreview.id}}" routerLinkActive="active"
          tuiLink
@@ -15,14 +15,16 @@
     </p>
 
     <tui-badge *ngIf="planPreview.isActual"
-      status="success"
-      value="Активный"
-      class="tui-space_right-2 tui-space_bottom-2"
+               style="margin-left: auto"
+               status="success"
+               value="Активный"
+               class="tui-space_right-2 tui-space_bottom-2"
     ></tui-badge>
     <tui-badge *ngIf="!planPreview.isActual"
-      status="neutral"
-      value="Закрыт"
-      class="tui-space_right-2 tui-space_bottom-2"
+               style="margin-left: auto"
+               status="neutral"
+               value="Закрыт"
+               class="tui-space_right-2 tui-space_bottom-2"
     ></tui-badge>
   </div>
 </tui-island>

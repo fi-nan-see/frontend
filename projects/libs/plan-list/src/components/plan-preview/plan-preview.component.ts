@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {PlanPreviewDto} from "../../dtos";
 import { Nullish } from 'projects/libs/utils/src';
+import { TuiStatus } from '@taiga-ui/kit';
 
 @Component({
   selector: 'plan-preview',
@@ -10,4 +11,8 @@ import { Nullish } from 'projects/libs/utils/src';
 export class PlanPreviewComponent{
   @Input()
   planPreview: Nullish<PlanPreviewDto>;
+
+  getTuiStatus(isActive: boolean): TuiStatus {
+    return isActive ? 'success' : 'neutral';
+  }
 }
