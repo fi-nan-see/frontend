@@ -10,9 +10,6 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['authorization-form.component.css']
 })
 export class AuthorizationFormComponent implements OnDestroy {
-  login: string = '';
-  password: string = '';
-
   loginButtonClick$ = new Subject<void>();
   logoutButtonClick$ = new Subject<void>();
 
@@ -21,8 +18,8 @@ export class AuthorizationFormComponent implements OnDestroy {
   destroy$ = new Subject<void>();
 
   loginForm = new FormGroup({
-    login: new FormControl(null, Validators.required),
-    password: new FormControl(null, Validators.required),
+    login: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
   });
 
   constructor(
@@ -32,7 +29,9 @@ export class AuthorizationFormComponent implements OnDestroy {
 
     this.loginButtonClick$.pipe(takeUntil(this.destroy$)).subscribe(
       _ => {
-        const user = this.authService.authorize(this.login, this.password);
+        const login = this.loginForm.value.login ?? '';
+        const password = this.loginForm.value.password ?? '';
+        const user = this.authService.authorize(login, password);
         this.store.dispatch(new LoginUser(user));
       }
     );
