@@ -1,6 +1,14 @@
 .header {
   display: flex;
+  align-items: center;
   background-color: aqua;
+}
+
+.logo {
+  font-size: 60px;
+  margin-left: 20px;
+  user-select: none;
+  cursor: pointer;
 }
 
 .body {
