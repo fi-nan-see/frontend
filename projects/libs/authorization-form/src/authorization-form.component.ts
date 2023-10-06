@@ -22,25 +22,21 @@ export class AuthorizationFormComponent implements OnDestroy {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(
-    private readonly authService: AuthorizationService,
-    private readonly store: Store<AuthorizationState>) {
+  constructor(private readonly authService: AuthorizationService,
+              private readonly store: Store<AuthorizationState>) {
+
     this.user$ = store.pipe(select('user'));
 
     this.loginButtonClick$.pipe(takeUntil(this.destroy$)).subscribe(
       _ => {
         const login = this.loginForm.value.login ?? '';
         const password = this.loginForm.value.password ?? '';
-        const user = this.authService.authorize(login, password);
-        this.store.dispatch(new LoginUser(user));
+        this.authService.authorize(login, password);
       }
     );
 
     this.logoutButtonClick$.pipe(takeUntil(this.destroy$)).subscribe(
-      _ => {
-        this.authService.logout();
-        this.store.dispatch(new LogoutUser());
-      }
+      _ => this.authService.logout()
     );
   }
 
