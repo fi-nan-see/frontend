@@ -718,6 +718,10 @@ components:
           format: uuid
           example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
           description: ID плана
+        name:
+          type: string
+          description: Название плана
+          example: План на октябрь
         start_date:
           type: string
           format: datetime

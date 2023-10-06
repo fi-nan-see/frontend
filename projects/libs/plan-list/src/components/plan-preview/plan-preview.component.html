@@ -1,13 +1,28 @@
-<div class="plan-preview" *ngIf="planPreview">
-  <div *ngIf="planPreview.isActual">
-    <p>Текущий план</p>
-    <p>Баланс: {{planPreview.currentBalance}}</p>
-  </div>
+<tui-island *ngIf="planPreview" style="width: 200px; height: 200px; display: flex; flex-direction: column">
+  <p class="tui-island__category">{{planPreview.startDate}}—{{planPreview.endDate}}</p>
+  <h3 class="tui-island__title">{{planPreview.name}}</h3>
+  <p class="tui-island__paragraph">
+    {{planPreview.isActual ? "Баланс" : "Остаток"}}: {{planPreview.currentBalance}} руб.
+  </p>
 
-  <div *ngIf="!planPreview.isActual">
-    <p>Завершившийся план</p>
-    <p>Остаток: {{planPreview.currentBalance}}</p>
-  </div>
+  <div style="display: flex; flex-direction: row; margin-top: auto">
+    <p class="tui-island__paragraph tui-island__paragraph_link">
+      <a routerLink="/plan/{{planPreview.id}}" routerLinkActive="active"
+         tuiLink
+      >
+        Открыть
+      </a>
+    </p>
 
-  <div class="plan-dates">{{planPreview.startDate}} - {{planPreview.endDate}}</div>
-</div>
+    <tui-badge *ngIf="planPreview.isActual"
+      status="success"
+      value="Активный"
+      class="tui-space_right-2 tui-space_bottom-2"
+    ></tui-badge>
+    <tui-badge *ngIf="!planPreview.isActual"
+      status="neutral"
+      value="Закрыт"
+      class="tui-space_right-2 tui-space_bottom-2"
+    ></tui-badge>
+  </div>
+</tui-island>

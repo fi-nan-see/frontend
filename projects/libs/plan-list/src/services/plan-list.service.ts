@@ -10,6 +10,7 @@ export class PlanListService {
   readonly plans: PlanPreviewDto[] = [
     {
       id: '1',
+      name: 'План на январь',
       startDate: '2020-01-01',
       endDate: '2020-01-31',
       currentBalance: 1000,
@@ -17,6 +18,7 @@ export class PlanListService {
     },
     {
       id: '2',
+      name: 'План на февраль',
       startDate: '2020-02-01',
       endDate: '2020-02-29',
       currentBalance: 2000,
@@ -24,6 +26,7 @@ export class PlanListService {
     },
     {
       id: '3',
+      name: 'План на март',
       startDate: '2020-03-01',
       endDate: '2020-03-31',
       currentBalance: 3000,
