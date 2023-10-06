@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {NavigationElement} from "./models";
 
 @Component({
   selector: 'navigation',
@@ -8,5 +9,6 @@ import { Component } from '@angular/core';
   ]
 })
 export class NavigationComponent {
-
+  @Input({required: true})
+  elements: NavigationElement[] = [];
 }

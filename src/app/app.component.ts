@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {NavigationElement} from "../../projects/libs/navigation/src";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,19 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Finansee';
+
+  readonly navigationElements: NavigationElement[] = [
+    {
+      name: 'Главная страница',
+      routerLink: '/'
+    },
+    {
+      name: 'Снова главная страница',
+      routerLink: '/'
+    },
+    {
+      name: 'Список планов',
+      routerLink: '/plan-list'
+    }
+  ]
 }

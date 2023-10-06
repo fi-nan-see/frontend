@@ -4,28 +4,12 @@
   orientation="vertical"
   [collapsed]="true"
 >
-  <button
+  <button *ngFor="let element of elements"
     size="l"
     tuiButton
     type="button"
-    routerLink="/"
+    routerLink="{{element.routerLink}}"
   >
-    Главная страница
-  </button>
-  <button
-    size="l"
-    tuiButton
-    type="button"
-    routerLink="/"
-  >
-    Снова главная страница
-  </button>
-  <button
-    size="l"
-    tuiButton
-    type="button"
-    routerLink="plan-list"
-  >
-    Список планов
+    {{element.name}}
   </button>
 </div>
