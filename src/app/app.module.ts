@@ -14,6 +14,7 @@ import {WelcomeComponent} from './components/welcome/welcome.component';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {NavigationModule} from "../../projects/libs/navigation/src";
 import {CookieModule} from "../../projects/libs/cookie/src";
+import {PlanModule} from "../../projects/libs/plan/src";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {CookieModule} from "../../projects/libs/cookie/src";
     TuiDialogModule,
     TuiAlertModule,
     NavigationModule,
-    CookieModule
+    CookieModule,
+    PlanModule
   ],
   providers: [{provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
   bootstrap: [AppComponent]

@@ -15,6 +15,9 @@
       "@libs/navigation": [
         "dist/libs/navigation"
       ],
+      "@libs/plan": [
+        "dist/libs/plan"
+      ],
       "@libs/plan-list": [
         "dist/libs/plan-list"
       ],

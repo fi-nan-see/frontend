@@ -1,0 +1,9 @@
+<ng-container *ngIf="plan$ | async as plan; else loader">
+  <p>Hello!</p>
+</ng-container>
+
+<ng-template #loader>
+  <tui-loader
+    [showLoader]="true"
+  ></tui-loader>
+</ng-template>
