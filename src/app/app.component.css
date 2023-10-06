@@ -4,7 +4,14 @@
 }
 
 .body {
+  display: flex;
+  flex-direction: row;
   margin-top: 20px;
+}
+
+.navigation {
+  margin-right: 20px;
+  background: rgb(128, 128, 128);
 }
 
 .authorization-form {

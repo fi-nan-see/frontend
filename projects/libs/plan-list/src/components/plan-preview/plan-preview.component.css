@@ -1,0 +1,14 @@
+.plan-preview {
+  display: flex;
+  flex-direction: column;
+  border: solid;
+  border-radius: 10px;
+  height: 200px;
+  width: 200px;
+}
+
+.plan-dates {
+  display: flex;
+  margin-top: auto;
+  justify-content: center;
+}

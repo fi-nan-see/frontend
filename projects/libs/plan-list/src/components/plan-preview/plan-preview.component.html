@@ -1,0 +1,13 @@
+<div class="plan-preview" *ngIf="planPreview">
+  <div *ngIf="planPreview.isActual">
+    <p>Текущий план</p>
+    <p>Баланс: {{planPreview.currentBalance}}</p>
+  </div>
+
+  <div *ngIf="!planPreview.isActual">
+    <p>Завершившийся план</p>
+    <p>Остаток: {{planPreview.currentBalance}}</p>
+  </div>
+
+  <div class="plan-dates">{{planPreview.startDate}} - {{planPreview.endDate}}</div>
+</div>
