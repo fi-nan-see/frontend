@@ -1,4 +1,8 @@
-<tui-island *ngIf="planPreview" style="width: 200px; height: 200px; display: flex; flex-direction: column">
+<tui-island
+  *ngIf="planPreview"
+  style="width: 200px; height: 200px; display: flex; flex-direction: column"
+  [hoverable]="true"
+>
   <p class="tui-island__category">{{planPreview.startDate}}—{{planPreview.endDate}}</p>
   <h3 class="tui-island__title">{{planPreview.name}}</h3>
   <p class="tui-island__paragraph">
