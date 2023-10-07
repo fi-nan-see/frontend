@@ -23,6 +23,13 @@
       </div>
       <div class="plan__outcomes">
         <h4>Запланированные расходы:</h4>
+        <div style="display: flex; flex-wrap: wrap; width: 100%; justify-content: space-between">
+          <outcome style="width: 45%; margin-bottom: 20px"
+                  *ngFor="let outcome of plan.outcomes"
+                  [outcome]="outcome"
+          >
+          </outcome>
+        </div>
       </div>
     </div>
   </tui-island>

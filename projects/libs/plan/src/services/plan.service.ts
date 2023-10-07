@@ -38,9 +38,21 @@ export class PlanService {
       outcomes: [
         {
           id: '1',
-          name: 'Продукты',
-          sum: 1000,
+          name: 'Интернет',
+          sum: 600,
           date: '2020-01-01',
+        },
+        {
+          id: '2',
+          name: 'Аренда',
+          sum: 30000,
+          date: '2020-01-04',
+        },
+        {
+          id: '3',
+          name: 'Проездной',
+          sum: 1300,
+          date: '2020-01-14',
         }
       ]
     }).pipe(delay(0));

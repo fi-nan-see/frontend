@@ -4,13 +4,15 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {TuiLoaderModule} from "@taiga-ui/core";
 import {TuiIslandModule} from "@taiga-ui/kit";
 import { IncomeComponent } from './components/income/income.component';
+import { OutcomeComponent } from './components/outcome/outcome.component';
 
 
 
 @NgModule({
   declarations: [
     PlanComponent,
-    IncomeComponent
+    IncomeComponent,
+    OutcomeComponent
   ],
   imports: [
     AsyncPipe,
