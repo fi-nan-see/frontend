@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { PlanCreationComponent } from './plan-creation.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {TuiCalendarRangeModule, TuiInputDateRangeModule, TuiInputModule, TuiInputNumberModule} from "@taiga-ui/kit";
-import {TuiButtonModule} from "@taiga-ui/core";
+import {TuiButtonModule, TuiTextfieldControllerModule} from "@taiga-ui/core";
 import {RouterLink} from "@angular/router";
+import {TuiCurrencyPipeModule} from "@taiga-ui/addon-commerce";
 
 
 
@@ -18,7 +19,9 @@ import {RouterLink} from "@angular/router";
     RouterLink,
     TuiInputNumberModule,
     TuiCalendarRangeModule,
-    TuiInputDateRangeModule
+    TuiInputDateRangeModule,
+    TuiTextfieldControllerModule,
+    TuiCurrencyPipeModule
   ],
   exports: [
     PlanCreationComponent
