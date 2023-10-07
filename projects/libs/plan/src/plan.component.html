@@ -5,14 +5,28 @@
     <h2 class="title">{{plan.name}}</h2>
     <div class="plan__properties">
       <p class="tui-island__paragraph">Период: {{plan.startDate}} — {{plan.endDate}}</p>
-      <p class="tui-island__paragraph">Баланс на начало периода: {{plan.initialBalance}} {{'RUB' | tuiCurrency}}</p>
-      <p class="tui-island__paragraph">Текущий баланс: {{plan.currentBalance}} {{'RUB' | tuiCurrency}}</p>
-      <p class="tui-island__paragraph">Баланс на день: {{plan.currentDailyBalance}} {{'RUB' | tuiCurrency}}</p>
+      <p class="tui-island__paragraph">Баланс на начало
+        периода: {{plan.initialBalance | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
+      <p class="tui-island__paragraph">Текущий
+        баланс: {{plan.currentBalance | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
+      <p class="tui-island__paragraph">Баланс на
+        день: {{plan.currentDailyBalance | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
     </div>
 
     <div class="plan__transactions">
+      <div class="plan__outcomes">
+        <h3>Запланированные расходы:</h3>
+        <div class="plan__outcome-list">
+          <outcome class="plan__outcome"
+                   *ngFor="let outcome of plan.outcomes"
+                   [outcome]="outcome"
+          >
+          </outcome>
+        </div>
+      </div>
+
       <div class="plan__incomes">
-        <h4>Запланированные доходы:</h4>
+        <h3>Запланированные доходы:</h3>
         <div class="plan__income-list">
           <income class="plan__income"
             *ngFor="let income of plan.incomes"
@@ -21,19 +35,9 @@
           </income>
         </div>
       </div>
-      <div class="plan__outcomes">
-        <h4>Запланированные расходы:</h4>
-        <div class="plan__outcome-list">
-          <outcome class="plan__outcome"
-                  *ngFor="let outcome of plan.outcomes"
-                  [outcome]="outcome"
-          >
-          </outcome>
-        </div>
-      </div>
     </div>
 
-    <p class="tui-island__paragraph">Отложено в периоде: {{plan.remains}} {{'RUB' | tuiCurrency}}</p>
+    <p class="tui-island__paragraph">Отложено в периоде: {{plan.remains | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
   </tui-island>
 </ng-container>
 
@@ -44,7 +48,8 @@
     <h2 class="title tui-skeleton tui-skeleton_short">Некоторый план</h2>
     <div style="display: flex; flex-direction: column; gap: 8px">
       <p class="tui-island__paragraph">Период: <span class="tui-skeleton">9999-99-99 - 9999-99-99</span></p>
-      <p class="tui-island__paragraph">Баланс на начало периода: <span class="tui-skeleton">9999-99-99 - 9999-99-99</span></p>
+      <p class="tui-island__paragraph">Баланс на начало периода: <span
+        class="tui-skeleton">9999-99-99 - 9999-99-99</span></p>
       <p class="tui-island__paragraph">Текущий баланс: <span class="tui-skeleton">9999-99-99 - 9999-99-99</span></p>
       <p class="tui-island__paragraph">Баланс на день: <span class="tui-skeleton">9999-99-99 - 9999-99-99</span></p>
     </div>

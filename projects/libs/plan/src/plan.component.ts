@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Observable} from "rxjs";
-import {PlanDto} from "./dtos";
+import {IncomeDto, OutcomeDto, PlanDto} from "./dtos";
 import {PlanService} from "./services";
 
 @Component({
@@ -15,7 +15,9 @@ export class PlanComponent {
   planId: string = '1';
 
   plan$: Observable<PlanDto>;
+
   constructor(private readonly planService: PlanService) {
     this.plan$ = this.planService.getPlan(this.planId);
   }
+
 }
