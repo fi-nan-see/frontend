@@ -9,6 +9,7 @@ export interface PlanDto {
     initialBalance: number;
     currentBalance: number;
     currentDailyBalance: number;
+    remains: number;
     incomes: Array<IncomeDto>;
     outcomes: Array<OutcomeDto>;
 }

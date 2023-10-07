@@ -15,6 +15,7 @@ export class PlanService {
       initialBalance: 1000,
       currentBalance: 22000,
       currentDailyBalance: 1000,
+      remains: 5000,
       incomes: [
         {
           id: '1',
