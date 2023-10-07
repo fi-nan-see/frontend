@@ -15,10 +15,6 @@ export class AppComponent {
       routerLink: '/'
     },
     {
-      name: 'Снова главная страница',
-      routerLink: '/'
-    },
-    {
       name: 'Список планов',
       routerLink: '/plan-list'
     }
