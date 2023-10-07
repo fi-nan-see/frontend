@@ -1,0 +1,746 @@
+openapi: 3.0.3
+info:
+  title: BudgetProfi
+  version: 1.0.0
+tags:
+  - name: Пользователи
+    description: Управление пользователями приложения
+  - name: Авторизация
+    description: Управление пользовательскими сессиями
+  - name: Планы
+    description: Управление планами бюджета
+  - name: Дни
+    description: Управление днями
+paths:
+# Пользователи
+  /api/v1/users:
+    put:
+      tags:
+        - Пользователи
+      summary: Создать пользователя
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequestDto'
+      responses:
+        '201':
+          description: Пользователь создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreationResponseDto'
+        '409':
+          description: Пользователь с таким логином уже существует
+
+# Авторизация
+  /api/v1/login:
+    put:
+      tags:
+        - Авторизация
+      summary: Авторизоваться
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequestDto'
+      responses:
+        '200':
+          description: Авторизация уже существовала
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponseDto'
+        '201':
+          description: Авторизован
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponseDto'
+        '401':
+          description: Не удалось авторизоваться
+  /api/v1/logout:
+    delete:
+      tags:
+        - Авторизация
+      summary: Закончить авторизационную сессию
+      responses:
+        '200':
+          description: Авторизацианная сессия завершена
+
+# Планы
+  /api/v1/plans:
+    post:
+      tags:
+        - Планы
+      summary: Создать новый план
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePlanRequestDto'
+      responses:
+        '201':
+          description: План создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreationResponseDto'
+        '400':
+          description: Ошибка валидации данных
+        '401':
+          description: Требуется авторизация
+    get:
+      tags:
+        - Планы
+      summary: Получить список планов
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlanPreviewDto'
+          description: Список планов
+        '401':
+          description: Требуется авторизация
+  /api/v1/plans/{planId}:
+    parameters:
+      - in: path
+        name: planId
+        schema:
+          type: string
+        required: true
+    get:
+      tags:
+        - Планы
+      summary: Получить план
+      responses:
+        '200':
+          description: План создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanDto'
+        '401':
+          description: Требуется авторизация
+        '404':
+          description: План с переданным ID не найден
+    delete:
+      tags:
+        - Планы
+      summary: Удалить план
+      responses:
+        '200':
+          description: План удалён
+        '401':
+          description: Требуется авторизация
+        '404':
+          description: План с переданным ID не найден
+  /api/v1/plans/{planId}/incomes:
+    parameters:
+      - in: path
+        name: planId
+        schema:
+          type: string
+        required: true
+    post:
+      tags:
+        - Планы
+      summary: Добавить новый доход в план
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePlannedIncomeDto'
+      responses:
+        '201':
+          description: Доход добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreationResponseDto'
+        '400':
+          description: Ошибка валидации данных
+        '401':
+          description: Требуется авторизация
+        '404':
+          description: План не найден
+  /api/v1/plans/{planId}/outcomes:
+    parameters:
+      - in: path
+        name: planId
+        schema:
+          type: string
+        required: true
+    post:
+      tags:
+        - Планы
+      summary: Добавить новый расход в план
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePlannedOutcomeDto'
+      responses:
+        '201':
+          description: Расход добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreationResponseDto'
+        '400':
+          description: Ошибка валидации данных
+        '401':
+          description: Требуется авторизация
+        '404':
+          description: План не найден
+
+# Дни
+  /api/v1/days/{date}:
+    parameters:
+      - in: path
+        name: date
+        schema:
+          type: string
+          format: date
+        required: true
+    get:
+      tags:
+        - Дни
+      summary: Получить информацию по дню
+      responses:
+        '200':
+          description: Информация по дню
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DayDto'
+        '401':
+          description: Требуется авторизация
+        '404':
+          description: День не включён ни в один план
+  /api/v1/days/{date}/incomes:
+    parameters:
+      - in: path
+        name: date
+        schema:
+          type: string
+          format: date
+        required: true
+    post:
+      tags:
+        - Дни
+      summary: Добавить состоявшийся доход
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccomplishedIncomeRequestDto'
+      responses:
+        '201':
+          description: Доход добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreationResponseDto'
+        '400':
+          description: Ошибка валидации данных
+        '401':
+          description: Требуется авторизация
+        '404':
+          description: План не найден
+  /api/v1/days/{date}/outcomes:
+    parameters:
+      - in: path
+        name: date
+        schema:
+          type: string
+          format: date
+        required: true
+    post:
+      tags:
+        - Дни
+      summary: Добавить состоявшийся расход
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePlannedOutcomeDto'
+      responses:
+        '201':
+          description: Расход добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreationResponseDto'
+        '400':
+          description: Ошибка валидации данных
+        '401':
+          description: Требуется авторизация
+
+components:
+  schemas:
+    DayDto:
+      type: object
+      required:
+        - budget
+        - balance
+        - incomes
+        - outcomes
+      properties:
+        budget:
+          type: integer
+          description: Бюджет на день
+          example: 700
+        balance:
+          type: integer
+          description: Баланс на данный момент
+          example: 350
+        incomes:
+          type: array
+          description: Состоявшиеся доходы за день
+          items:
+            $ref: '#/components/schemas/AccomplishedIncomeDto'
+        outcomes:
+          type: array
+          description: Состоявшиеся расходы за день
+          items:
+            $ref: '#/components/schemas/AccomplishedOutcomeDto'
+        savings:
+          type: array
+          description: Состоявшиеся накопления за день
+          items:
+            $ref: '#/components/schemas/AccomplishedSavingDto'
+        plannedIncomes:
+          type: array
+          description: Запланированные доходы на день
+          items:
+            $ref: '#/components/schemas/PlannedIncomeDto'
+        plannedOutcomes:
+          type: array
+          description: Запланированные расходы на день
+          items:
+            $ref: '#/components/schemas/PlannedOutcomeDto'
+        plannedSavings:
+          type: array
+          description: Запланированные накопления на день
+          items:
+            $ref: '#/components/schemas/PlannedSavingDto'
+    PlanDto:
+      type: object
+      description: План
+      required:
+        - id
+        - start_date
+        - end_date
+        - initial_balance
+        - current_balance
+        - current_daily_balance
+        - incomes
+        - outcomes
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
+          description: ID плана
+        start_date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: Дата начала периода
+        end_date:
+          type: string
+          format: datetime
+          example: 31.10.2023
+          description: Дата окончания периода
+        initial_balance:
+          type: integer
+          description: Сумма на начало периода
+          example: 10000
+        current_balance:
+          type: integer
+          description: Текущий баланс
+        current_daily_balance:
+          type: integer
+          description: Текущий дневной баланс
+        incomes:
+          type: array
+          description: Запланированные пополнения
+          items:
+            $ref: '#/components/schemas/PlannedIncomeDto'
+        outcomes:
+          type: array
+          description: Запланированные списания
+          items:
+            $ref: '#/components/schemas/PlannedOutcomeDto'
+    PlanPreviewDto:
+      type: object
+      description: Модель предпросмотра плана для отображения в списке
+      required:
+        - id
+        - start_date
+        - end_date
+        - current_balance
+        - is_actual
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
+          description: ID плана
+        name:
+          type: string
+          description: Название плана
+          example: План на октябрь
+        start_date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: Дата начала периода
+        end_date:
+          type: string
+          format: datetime
+          example: 31.10.2023
+          description: Дата окончания периода
+        current_balance:
+          type: integer
+          description: Текущий баланс
+          example: 15600
+        is_actual:
+          type: boolean
+          description: Активен ли данный план сейчас
+          example: true
+
+    AccomplishedOutcomeDto:
+      type: object
+      description: Модель состоявшегося расхода
+      required:
+        - id
+        - date
+        - amount
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
+          description: ID расхода
+        name:
+          type: string
+          description: Название расхода
+          example: Продукты
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: Дата расхода
+        amount:
+          type: integer
+          description: Сумма расхода
+          example: 945
+    AccomplishedSavingDto:
+      type: object
+      description: Модель состоявшегося накопления
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
+          description: ID накопления
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: День пополнения
+        sum:
+          type: integer
+          description: Сумма пополнения
+          example: 1000
+        name:
+          type: string
+          description: Название пополнения
+          example: Продажа тумбочки
+    AccomplishedIncomeDto:
+      type: object
+      description: Модель незапланированного пополнения
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
+          description: ID пополнения
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: День пополнения
+        sum:
+          type: integer
+          description: Сумма пополнения
+          example: 1000
+        name:
+          type: string
+          description: Название пополнения
+          example: Продажа тумбочки
+
+    PlannedIncomeDto:
+      type: object
+      required:
+        - id
+        - date
+        - amount
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
+          description: ID пополнения
+        name:
+          type: string
+          description: Название дохода
+          example: Зарплата
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: Дата дохода
+        amount:
+          type: integer
+          description: Сумма дохода
+          example: 100000
+    PlannedOutcomeDto:
+      type: object
+      description: Модель запланированного расхода
+      required:
+        - id
+        - amount
+        - date
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
+          description: ID списания
+        name:
+          type: string
+          description: Название расхода
+          example: Плата за интернет
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: День расхода
+        amount:
+          type: integer
+          description: Сумма расхода
+          example: 600
+    PlannedSavingDto:
+      type: object
+      description: Модель запланированного накопления
+      required:
+        - id
+        - amount
+        - date
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
+          description: ID накопления
+        name:
+          type: string
+          description: Название накопления
+          example: Отложил с зарплаты
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: День накопления
+        amount:
+          type: integer
+          description: Сумма накопления
+          example: 1000
+
+    CreateAccomplishedOutcomeRequestDto:
+      type: object
+      description: DTO создания состоявшегося расхода
+      required:
+        - sum
+        - name
+      properties:
+        name:
+          type: string
+          description: Название расхода
+          example: Продукты
+        sum:
+          type: integer
+          description: Сумма расхода
+          example: 945
+    CreateAccomplishedIncomeRequestDto:
+      type: object
+      required:
+        - amount
+        - name
+      properties:
+        name:
+          type: string
+          description: Название дохода
+          example: Продажа тумбочки
+        amount:
+          type: integer
+          description: Сумма расхода
+          example: 1000
+    CreateAccomplishedSavingRequestDto:
+      type: object
+      required:
+        - amount
+      properties:
+        name:
+          type: string
+          description: Название накопления
+          example: Отложил с зарплаты
+        amount:
+          type: integer
+          description: Сумма накопления
+          example: 1000
+
+    CreatePlannedIncomeDto:
+      type: object
+      required:
+        - date
+        - amount
+        - name
+      properties:
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: День дохода
+        amount:
+          type: integer
+          description: Сумма дохода
+          example: 100000
+        name:
+          type: string
+          description: Название дохода
+          example: Зарплата
+    CreatePlannedOutcomeDto:
+      type: object
+      description: DTO для создания запланированного расхода
+      required:
+        - date
+        - sum
+        - name
+      properties:
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: День расхода
+        sum:
+          type: integer
+          description: Сумма расхода
+          example: 600
+        name:
+          type: string
+          description: Название расхода
+          example: Плата за интернет
+    CreatePlannedSavingDto:
+      type: object
+      description: DTO для создания запланированного накопления
+      required:
+        - date
+        - amount
+      properties:
+        date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: День накопления
+        amount:
+          type: integer
+          description: Сумма накопления
+          example: 1000
+
+    CreatePlanRequestDto:
+      type: object
+      description: DTO с данными для создания плана
+      required:
+        - name
+        - start_date
+        - end_date
+        - initial_balance
+      properties:
+        name:
+          type: string
+          description: Название плана
+          example: План на октябрь
+        initial_balance:
+          type: number
+          description: Сумма на начало
+          example: 10000
+        start_date:
+          type: string
+          format: datetime
+          example: 01.10.2023
+          description: Дата начала периода
+        end_date:
+          type: string
+          format: datetime
+          example: 31.10.2023
+          description: Дата окончания периода
+    CreateUserRequestDto:
+      type: object
+      required:
+        - login
+        - password
+      properties:
+        login:
+          type: string
+          description: Логин
+          example: kawwik
+        password:
+          type: string
+          description: Пароль
+          example: 12345
+
+    LoginRequestDto:
+      type: object
+      required:
+        - login
+        - password
+      properties:
+        login:
+          type: string
+          description: Логин
+          example: kawwik
+        password:
+          type: string
+          description: Пароль
+          example: 12345
+    LoginResponseDto:
+      type: object
+      description: Ответ на авторизационный запрос
+      required:
+        - token
+      properties:
+        token:
+          type: string
+          example: a12972b6-d769-4f3a-a3ab-f1602096950f
+          description: Авторизационный токен
+
+    CreationResponseDto:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID созданного ресурса
+          example: 184d17b5-73a0-44c0-9720-8fe16dc2b923
