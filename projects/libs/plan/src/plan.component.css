@@ -1,4 +1,17 @@
 .plan {
   display: flex;
   flex-direction: column;
+  width: 800px;
+}
+
+.plan__incomes {
+  width: 40%;
+  display: flex;
+  flex-direction: column
+}
+
+.plan__outcomes {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
 }

@@ -1,5 +1,31 @@
 <ng-container *ngIf="plan$ | async as plan; else loader">
-  <p>Hello!</p>
+  <tui-island
+    class="plan"
+    size="l">
+    <h2 class="title">{{plan.name}}</h2>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <p class="tui-island__paragraph">Период: {{plan.startDate}} — {{plan.endDate}}</p>
+      <p class="tui-island__paragraph">Баланс на начало периода: {{plan.initialBalance}}</p>
+      <p class="tui-island__paragraph">Текущий баланс: {{plan.currentBalance}}</p>
+      <p class="tui-island__paragraph">Баланс на день: {{plan.currentDailyBalance}}</p>
+    </div>
+
+    <div style="display: flex; justify-content: space-between">
+      <div class="plan__incomes">
+        <h4>Запланированные доходы:</h4>
+        <div style="display: flex; flex-wrap: wrap; width: 100%; justify-content: space-between">
+          <income style="width: 45%; margin-bottom: 20px"
+            *ngFor="let income of plan.incomes"
+            [income]="income"
+          >
+          </income>
+        </div>
+      </div>
+      <div class="plan__outcomes">
+        <h4>Запланированные расходы:</h4>
+      </div>
+    </div>
+  </tui-island>
 </ng-container>
 
 <ng-template #loader>

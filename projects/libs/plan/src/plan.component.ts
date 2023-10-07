@@ -15,7 +15,6 @@ export class PlanComponent {
   planId: string = '1';
 
   plan$: Observable<PlanDto>;
-
   constructor(private readonly planService: PlanService) {
     this.plan$ = this.planService.getPlan(this.planId);
   }
