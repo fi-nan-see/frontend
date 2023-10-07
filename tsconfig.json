@@ -18,6 +18,9 @@
       "@libs/plan": [
         "dist/libs/plan"
       ],
+      "@libs/plan-creation": [
+        "dist/libs/plan-creation"
+      ],
       "@libs/plan-list": [
         "dist/libs/plan-list"
       ],

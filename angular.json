@@ -332,6 +332,39 @@
           }
         }
       }
+    },
+    "@libs/plan-creation": {
+      "projectType": "library",
+      "root": "projects/libs/plan-creation",
+      "sourceRoot": "projects/libs/plan-creation/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/libs/plan-creation/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/libs/plan-creation/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/libs/plan-creation/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/libs/plan-creation/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

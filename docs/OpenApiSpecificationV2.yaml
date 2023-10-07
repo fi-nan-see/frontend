@@ -366,6 +366,14 @@ components:
         current_daily_balance:
           type: integer
           description: Текущий дневной баланс
+        status:
+          type: string
+          description: Статус плана
+          example: active
+          enum:
+            - future
+            - active
+            - finished
         incomes:
           type: array
           description: Запланированные пополнения

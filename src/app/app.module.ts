@@ -15,6 +15,8 @@ import {PageNotFoundComponent} from './components/page-not-found/page-not-found.
 import {NavigationModule} from "../../projects/libs/navigation/src";
 import {CookieModule} from "../../projects/libs/cookie/src";
 import {PlanModule} from "../../projects/libs/plan/src";
+import {PlanCreationComponent} from "../../projects/libs/plan-creation/src/plan-creation.component";
+import {PlanCreationModule} from "../../projects/libs/plan-creation/src/plan-creation.module";
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import {PlanModule} from "../../projects/libs/plan/src";
     TuiAlertModule,
     NavigationModule,
     CookieModule,
-    PlanModule
+    PlanModule,
+    PlanCreationModule
   ],
   providers: [{provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
   bootstrap: [AppComponent]

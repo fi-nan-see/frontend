@@ -17,6 +17,10 @@ export class AppComponent {
     {
       name: 'Список планов',
       routerLink: '/plan-list'
+    },
+    {
+      name: 'Новый план',
+      routerLink: '/new-plan'
     }
   ]
 }
