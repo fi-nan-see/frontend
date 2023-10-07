@@ -1,7 +1,7 @@
 <ng-container *ngIf="outcome">
   <tui-island>
     <h4 class="title">{{outcome.name}}</h4>
-    <p class="tui-island__paragraph">{{outcome.sum}} руб.</p>
+    <p class="tui-island__paragraph">{{outcome.sum}} {{'RUB' | tuiCurrency}}</p>
     <p class="tui-island__paragraph">{{outcome.date}}</p>
   </tui-island>
 </ng-container>

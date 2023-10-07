@@ -5,9 +5,9 @@
     <h2 class="title">{{plan.name}}</h2>
     <div class="plan__properties">
       <p class="tui-island__paragraph">Период: {{plan.startDate}} — {{plan.endDate}}</p>
-      <p class="tui-island__paragraph">Баланс на начало периода: {{plan.initialBalance}} руб.</p>
-      <p class="tui-island__paragraph">Текущий баланс: {{plan.currentBalance}} руб.</p>
-      <p class="tui-island__paragraph">Баланс на день: {{plan.currentDailyBalance}} руб.</p>
+      <p class="tui-island__paragraph">Баланс на начало периода: {{plan.initialBalance}} {{'RUB' | tuiCurrency}}</p>
+      <p class="tui-island__paragraph">Текущий баланс: {{plan.currentBalance}} {{'RUB' | tuiCurrency}}</p>
+      <p class="tui-island__paragraph">Баланс на день: {{plan.currentDailyBalance}} {{'RUB' | tuiCurrency}}</p>
     </div>
 
     <div class="plan__transactions">
@@ -33,7 +33,7 @@
       </div>
     </div>
 
-    <p class="tui-island__paragraph">Отложено в периоде: {{plan.remains}}</p>
+    <p class="tui-island__paragraph">Отложено в периоде: {{plan.remains}} {{'RUB' | tuiCurrency}}</p>
   </tui-island>
 </ng-container>
 
