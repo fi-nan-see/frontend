@@ -4,14 +4,50 @@
   width: 800px;
 }
 
+.plan__properties {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .plan__incomes {
   width: 40%;
   display: flex;
   flex-direction: column
 }
 
+.plan__income-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.plan__income {
+  width: 45%;
+  margin-bottom: 20px;
+}
+
+.plan__outcome {
+  width: 45%;
+  margin-bottom: 20px;
+}
+
+.plan__outcome-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+}
+
+
 .plan__outcomes {
   width: 40%;
   display: flex;
   flex-direction: column;
+}
+
+.plan__transactions {
+  display: flex;
+  justify-content: space-between;
 }

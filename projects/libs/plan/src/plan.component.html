@@ -3,18 +3,18 @@
     class="plan"
     size="l">
     <h2 class="title">{{plan.name}}</h2>
-    <div style="display: flex; flex-direction: column; gap: 8px">
+    <div class="plan__properties">
       <p class="tui-island__paragraph">Период: {{plan.startDate}} — {{plan.endDate}}</p>
       <p class="tui-island__paragraph">Баланс на начало периода: {{plan.initialBalance}} руб.</p>
       <p class="tui-island__paragraph">Текущий баланс: {{plan.currentBalance}} руб.</p>
       <p class="tui-island__paragraph">Баланс на день: {{plan.currentDailyBalance}} руб.</p>
     </div>
 
-    <div style="display: flex; justify-content: space-between">
+    <div class="plan__transactions">
       <div class="plan__incomes">
         <h4>Запланированные доходы:</h4>
-        <div style="display: flex; flex-wrap: wrap; width: 100%; justify-content: space-between">
-          <income style="width: 45%; margin-bottom: 20px"
+        <div class="plan__income-list">
+          <income class="plan__income"
             *ngFor="let income of plan.incomes"
             [income]="income"
           >
@@ -23,8 +23,8 @@
       </div>
       <div class="plan__outcomes">
         <h4>Запланированные расходы:</h4>
-        <div style="display: flex; flex-wrap: wrap; width: 100%; justify-content: space-between">
-          <outcome style="width: 45%; margin-bottom: 20px"
+        <div class="plan__outcome-list">
+          <outcome class="plan__outcome"
                   *ngFor="let outcome of plan.outcomes"
                   [outcome]="outcome"
           >
@@ -52,32 +52,28 @@
     <div style="display: flex; justify-content: space-between">
       <div class="plan__incomes">
         <h4>Запланированные доходы:</h4>
-        <div style="display: flex; flex-wrap: wrap; width: 100%; justify-content: space-between">
+        <div class="plan__income-list">
           <income
-            style="width: 45%; margin-bottom: 20px"
-            class="tui-skeleton"
+            class="plan__income tui-skeleton"
             [income]="{name: 'Некоторый доход', sum: 1000, date: '2021-01-01', id: '1'}"
           ></income>
           <income
-            style="width: 45%; margin-bottom: 20px"
-            class="tui-skeleton"
+            class="plan__income tui-skeleton"
             [income]="{name: 'Некоторый доход', sum: 1000, date: '2021-01-01', id: '1'}"
           ></income>
         </div>
       </div>
       <div class="plan__outcomes">
         <h4>Запланированные расходы:</h4>
-        <div style="display: flex; flex-wrap: wrap; width: 100%; justify-content: space-between">
-          <income
-            style="width: 45%; margin-bottom: 20px"
-            class="tui-skeleton"
-            [income]="{name: 'Некоторый доход', sum: 1000, date: '2021-01-01', id: '1'}"
-          ></income>
-          <income
-            style="width: 45%; margin-bottom: 20px"
-            class="tui-skeleton"
-            [income]="{name: 'Некоторый доход', sum: 1000, date: '2021-01-01', id: '1'}"
-          ></income>
+        <div class="plan__outcome-list">
+          <outcome
+            class="plan__outcome tui-skeleton"
+            [outcome]="{name: 'Некоторый доход', sum: 1000, date: '2021-01-01', id: '1'}"
+          ></outcome>
+          <outcome
+            class="plan__outcome tui-skeleton"
+            [outcome]="{name: 'Некоторый доход', sum: 1000, date: '2021-01-01', id: '1'}"
+          ></outcome>
         </div>
       </div>
     </div>
