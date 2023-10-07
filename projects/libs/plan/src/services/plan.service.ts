@@ -56,6 +56,6 @@ export class PlanService {
           date: '2020-01-14',
         }
       ]
-    }).pipe(delay(0));
+    }).pipe(delay(1000));
   }
 }

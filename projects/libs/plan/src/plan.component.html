@@ -1,4 +1,4 @@
-<ng-container *ngIf="plan$ | async as plan; else loader">
+<ng-container *ngIf="plan$ | async as plan; else skeleton">
   <tui-island
     class="plan"
     size="l">
@@ -37,8 +37,51 @@
   </tui-island>
 </ng-container>
 
-<ng-template #loader>
-  <tui-loader
-    [showLoader]="true"
-  ></tui-loader>
+<ng-template #skeleton>
+  <tui-island
+    class="plan"
+    size="l">
+    <h2 class="title tui-skeleton tui-skeleton_short">Некоторый план</h2>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <p class="tui-island__paragraph">Период: <span class="tui-skeleton">9999-99-99 - 9999-99-99</span></p>
+      <p class="tui-island__paragraph">Баланс на начало периода: <span class="tui-skeleton">9999-99-99 - 9999-99-99</span></p>
+      <p class="tui-island__paragraph">Текущий баланс: <span class="tui-skeleton">9999-99-99 - 9999-99-99</span></p>
+      <p class="tui-island__paragraph">Баланс на день: <span class="tui-skeleton">9999-99-99 - 9999-99-99</span></p>
+    </div>
+
+    <div style="display: flex; justify-content: space-between">
+      <div class="plan__incomes">
+        <h4>Запланированные доходы:</h4>
+        <div style="display: flex; flex-wrap: wrap; width: 100%; justify-content: space-between">
+          <income
+            style="width: 45%; margin-bottom: 20px"
+            class="tui-skeleton"
+            [income]="{name: 'Некоторый доход', sum: 1000, date: '2021-01-01', id: '1'}"
+          ></income>
+          <income
+            style="width: 45%; margin-bottom: 20px"
+            class="tui-skeleton"
+            [income]="{name: 'Некоторый доход', sum: 1000, date: '2021-01-01', id: '1'}"
+          ></income>
+        </div>
+      </div>
+      <div class="plan__outcomes">
+        <h4>Запланированные расходы:</h4>
+        <div style="display: flex; flex-wrap: wrap; width: 100%; justify-content: space-between">
+          <income
+            style="width: 45%; margin-bottom: 20px"
+            class="tui-skeleton"
+            [income]="{name: 'Некоторый доход', sum: 1000, date: '2021-01-01', id: '1'}"
+          ></income>
+          <income
+            style="width: 45%; margin-bottom: 20px"
+            class="tui-skeleton"
+            [income]="{name: 'Некоторый доход', sum: 1000, date: '2021-01-01', id: '1'}"
+          ></income>
+        </div>
+      </div>
+    </div>
+
+    <p class="tui-island__paragraph">Отложено в периоде: <span class="tui-skeleton">9999-99-99 - 9999-99-99</span></p>
+  </tui-island>
 </ng-template>
