@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: BudgetProfi
+  title: FinanSee
   version: 1.0.0
 tags:
   - name: Пользователи
@@ -198,7 +198,7 @@ paths:
           description: План не найден
 
 # Дни
-  /api/v1/days/{date}:
+  /api/v1/plans/{planId}/{date}:
     parameters:
       - in: path
         name: date
