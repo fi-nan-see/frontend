@@ -24,6 +24,9 @@
       "@libs/plan-list": [
         "dist/libs/plan-list"
       ],
+      "@libs/transaction-carousel": [
+        "dist/libs/transaction-carousel"
+      ],
       "@libs/utils": [
         "dist/libs/utils"
       ]

@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {IncomeDto, OutcomeDto, PlanDto} from "./dtos";
 import {PlanService} from "./services";
 
@@ -16,8 +16,14 @@ export class PlanComponent {
 
   plan$: Observable<PlanDto>;
 
+  incomes$: Observable<IncomeDto[]>;
+  outcomes$: Observable<OutcomeDto[]>;
+
   constructor(private readonly planService: PlanService) {
     this.plan$ = this.planService.getPlan(this.planId);
+
+    this.incomes$ = this.plan$.pipe(map(plan => plan.incomes))
+    this.outcomes$ = this.plan$.pipe(map(plan => plan.outcomes))
   }
 
 }

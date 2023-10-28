@@ -1,0 +1,8 @@
+<ng-container *ngIf="transaction">
+  <tui-island textAlign="center" style="width: 125px; height: 125px; display: flex; flex-direction: column">
+    <h3 class="tui-island__title">{{transaction.name}}</h3>
+    <p style="align-self: center">{{transaction.amount | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
+    <p class="tui-island__paragraph tui-island__paragraph_link" style="font-size: 10px; margin-top: auto">{{transaction.date}}</p>
+  </tui-island>
+</ng-container>
+
