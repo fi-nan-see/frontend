@@ -5,6 +5,8 @@ import {TuiCalendarRangeModule, TuiInputDateRangeModule, TuiInputModule, TuiInpu
 import {TuiButtonModule, TuiTextfieldControllerModule} from "@taiga-ui/core";
 import {RouterLink} from "@angular/router";
 import {TuiCurrencyPipeModule} from "@taiga-ui/addon-commerce";
+import { ApiModule } from 'projects/libs/api/src/public-api';
+import { PlanClient } from 'projects/libs/api/src/lib/plan-client';
 
 
 
@@ -21,10 +23,14 @@ import {TuiCurrencyPipeModule} from "@taiga-ui/addon-commerce";
     TuiCalendarRangeModule,
     TuiInputDateRangeModule,
     TuiTextfieldControllerModule,
-    TuiCurrencyPipeModule
+    TuiCurrencyPipeModule,
+    ApiModule
   ],
   exports: [
     PlanCreationComponent
+  ],
+  providers: [
+    PlanClient
   ]
 })
 export class PlanCreationModule { }

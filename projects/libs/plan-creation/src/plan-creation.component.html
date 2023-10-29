@@ -1,5 +1,8 @@
 <div class="tui-container">
-  <form [formGroup]="planForm">
+  <form
+    [formGroup]="planForm"
+    (ngSubmit)="onButtonClick$.next()"
+  >
     <div class="tui-row tui-row_sme">
       <div class="tui-col_8">
         <div class="container">
@@ -7,7 +10,7 @@
             Новый план
           </h1>
           <tui-input
-            formControlName="nameValue"
+            formControlName="name"
           >
             Название
             <input tuiTextfield/>
@@ -15,7 +18,7 @@
           <div class="tui-form__row tui-form__row_multi-fields">
             <tui-input-number
               class="tui-form__multi-field"
-              formControlName="nameValue"
+              formControlName="initialBalance"
               [tuiTextfieldPostfix]="'RUB' | tuiCurrency"
             >
               Начальная сумма
