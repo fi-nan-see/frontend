@@ -5,6 +5,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {TuiInputModule, TuiInputPasswordModule} from "@taiga-ui/kit";
 import {TuiButtonModule, TuiHintModule, TuiTextfieldControllerModule} from "@taiga-ui/core";
+import { PlanClient } from 'projects/libs/api-client/src';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {TuiButtonModule, TuiHintModule, TuiTextfieldControllerModule} from "@tai
     AuthorizationFormComponent
   ],
   providers: [
-    AuthorizationService
+    AuthorizationService,
+    PlanClient
   ]
 })
 export class AuthorizationFormModule { }
