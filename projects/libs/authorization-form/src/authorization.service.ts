@@ -20,6 +20,7 @@ export class AuthorizationService {
     this.authClient.login(new LoginRequestDto(login, password))
       .pipe()
       .subscribe(response => {
+          console.log(response)
           this.store.dispatch(new LoginUser({name: login, token: response.token}));
         },
         () => {
