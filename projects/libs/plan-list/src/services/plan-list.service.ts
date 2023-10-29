@@ -15,12 +15,14 @@ export class PlanListService {
       map(plans => plans.map<PlanPreviewDto>(
         (plan) => {
           return {
-            id: plan.id,
-            name: plan.name,
-            startDate: plan.start_date,
-            endDate: plan.end_date,
-            currentBalance: plan.current_balance,
-            isActual: plan.is_actual
+            id: plan.ID,
+            name: plan.Name,
+            startDate: plan.StartDate,
+            endDate: plan.EndDate,
+            currentBalance: 12000,
+            isActual: true,
+            // currentBalance: plan.current_balance,
+            // isActual: plan.is_actual
           }
         }
       ))

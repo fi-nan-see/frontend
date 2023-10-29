@@ -1,8 +1,8 @@
 export interface GetPlansResponse{
-  id: string;
-  name: string;
-  start_date: string;
-  end_date: string;
+  ID: string;
+  Name: string;
+  StartDate: string;
+  EndDate: string;
   current_balance: number;
   is_actual: boolean;
 }
