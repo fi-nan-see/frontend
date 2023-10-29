@@ -3,6 +3,9 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "@libs/api": [
+        "dist/libs/api"
+      ],
       "@libs/authorization": [
         "dist/libs/authorization"
       ],
