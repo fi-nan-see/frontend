@@ -13,4 +13,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . -t cr.yandex/$containerRegistry/finansee-frontend:$(date +%s)
+      run: docker build . -t cr.yandex/$DOCKER_REGISTRY_ID/finansee-frontend:$(date +%s)
