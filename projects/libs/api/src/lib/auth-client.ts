@@ -6,7 +6,7 @@ import {LoginResponseDto} from "./dtos/login-response.dto";
 
 @Injectable()
 export class AuthClient {
-  private baseUrl = "https://d5duolb1cde5dmflb7bd.apigw.yandexcloud.net/api/v1/"
+  private baseUrl = "https://d5duolb1cde5dmflb7bd.apigw.yandexcloud.net/api/v1"
 
   constructor(private readonly httpClient: HttpClient) {
   }
