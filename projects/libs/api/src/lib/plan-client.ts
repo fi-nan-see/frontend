@@ -6,6 +6,7 @@ import {Injectable} from "@angular/core";
 import {GetPlansResponse} from "./dtos/get-plans-response";
 import {PlanDto} from "./dtos/plan-dto";
 import {GetPlanRequest} from "./dtos/get-plan-request";
+import {DeletePlanRequest} from "./dtos/delete-plan-request";
 
 @Injectable()
 export class PlanClient {
@@ -24,5 +25,9 @@ export class PlanClient {
 
   getPlanById(request: GetPlanRequest): Observable<PlanDto> {
     return this.httpClient.get<PlanDto>(this.url + "/" + request.id)
+  }
+
+  deletePlanById(request: DeletePlanRequest): Observable<{}>{
+    return this.httpClient.delete(this.url + "/" + request.id)
   }
 }
