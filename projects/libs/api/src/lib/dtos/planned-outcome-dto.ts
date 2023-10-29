@@ -1,4 +1,4 @@
-export class PlannedOutcomeDto{
+export interface PlannedOutcomeDto{
   id: string;
   name: string;
   date: string;
