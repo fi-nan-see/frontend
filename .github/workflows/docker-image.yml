@@ -1,7 +1,7 @@
 name: Push image to yandex container registry
 
 env:
-  IMAGE_NAME: "cr.yandex/${{secrets.DOCKER_REGISTRY_ID}}/finansee-frontend:release"
+  IMAGE_NAME: "cr.yandex/${{secrets.DOCKER_REGISTRY_ID}}/finansee-frontend:${(date +%s)}"
 
 on:
   push:
