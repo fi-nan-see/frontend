@@ -11,10 +11,10 @@ export class AuthorizationService {
   }
 
   public authorize(login: string, password: string) {
-    this.store.dispatch(new LoginUser({name: login}));
+    // this.store.dispatch(new LoginUser({name: login}));
   }
 
   public logout() {
-    this.store.dispatch(new LogoutUser());
+    // this.store.dispatch(new LogoutUser());
   }
 }

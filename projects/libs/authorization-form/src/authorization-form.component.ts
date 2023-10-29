@@ -1,8 +1,9 @@
 import {Component, OnDestroy} from '@angular/core';
 import {Observable, Subject, takeUntil} from "rxjs";
 import {select, Store} from "@ngrx/store";
-import {AuthorizationService, AuthorizationState, User} from 'projects/libs/authorization';
+import {AuthorizationState, User} from 'projects/libs/authorization';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AuthorizationService} from "./authorization.service";
 
 @Component({
   selector: 'authorization-form',
