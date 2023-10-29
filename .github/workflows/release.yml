@@ -1,0 +1,20 @@
+name: Релиз в Yandex.Cloud
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Установка yc
+      run: curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
+    - name: Инициализацияя yc
+      run: source "/home/runner/.bashrc"
+    - name: Аутентификация в Yandex.Cloud
+      run: yc init
