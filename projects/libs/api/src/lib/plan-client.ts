@@ -4,6 +4,7 @@ import {CreatePlanRequest} from "./dtos/create-plan-request";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {GetPlansResponse} from "./dtos/get-plans-response";
+import {PlanDto} from "./dtos/plan-dto";
 import {GetPlanRequest} from "./dtos/get-plan-request";
 
 @Injectable()
@@ -17,11 +18,11 @@ export class PlanClient {
     return this.httpClient.post<CreatePlanResponse>(this.url, request)
   }
 
-  getPlansList(): Observable<GetPlansResponse>{
+  getPlansList(): Observable<GetPlansResponse> {
     return this.httpClient.get<GetPlansResponse>(this.url)
   }
 
-  getPlanById(reuest: GetPlanRequest): Observable<GetPlanResponse>{
-
+  getPlanById(request: GetPlanRequest): Observable<PlanDto> {
+    return this.httpClient.get<PlanDto>(this.url + "/" + request.id)
   }
 }
