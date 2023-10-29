@@ -23,8 +23,8 @@ export class PlanClient {
     return this.httpClient.post<CreatePlanResponse>(this.url, request, this.getOptions())
   }
 
-  getPlansList(): Observable<GetPlansResponse> {
-    return this.httpClient.get<GetPlansResponse>(this.url, this.getOptions())
+  getPlansList(): Observable<GetPlansResponse[]> {
+    return this.httpClient.get<GetPlansResponse[]>(this.url, this.getOptions())
   }
 
   getPlanById(request: GetPlanRequest): Observable<PlanDto> {

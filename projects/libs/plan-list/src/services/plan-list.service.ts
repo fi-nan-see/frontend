@@ -1,43 +1,29 @@
 import {Injectable} from '@angular/core';
 import {PlanPreviewDto} from "../dtos";
-import {Observable, of} from "rxjs";
+import {map, Observable} from "rxjs";
+import { PlanClient } from 'projects/libs/api/src/lib/plan-client';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlanListService {
-
-  readonly plans: PlanPreviewDto[] = [
-    {
-      id: '1',
-      name: 'План на январь',
-      startDate: '2020-01-01',
-      endDate: '2020-01-31',
-      currentBalance: 1000,
-      isActual: true
-    },
-    {
-      id: '2',
-      name: 'План на февраль',
-      startDate: '2020-02-01',
-      endDate: '2020-02-29',
-      currentBalance: 2000,
-      isActual: false
-    },
-    {
-      id: '3',
-      name: 'План на март',
-      startDate: '2020-03-01',
-      endDate: '2020-03-31',
-      currentBalance: 3000,
-      isActual: false
-    }
-  ];
-
-  constructor() {
+  constructor(private readonly planClient: PlanClient) {
   }
 
   getPlanPreviews(): Observable<PlanPreviewDto[]> {
-    return of(this.plans);
+    return this.planClient.getPlansList().pipe(
+      map(plans => plans.map<PlanPreviewDto>(
+        (plan) => {
+          return {
+            id: plan.id,
+            name: plan.name,
+            startDate: plan.start_date,
+            endDate: plan.end_date,
+            currentBalance: plan.current_balance,
+            isActual: plan.is_actual
+          }
+        }
+      ))
+    )
   }
 }
