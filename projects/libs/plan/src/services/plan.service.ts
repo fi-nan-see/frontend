@@ -1,61 +1,33 @@
 import {Injectable} from '@angular/core';
 import {PlanDto} from "../dtos";
-import {delay, Observable, of} from "rxjs";
+import {delay, map, Observable, of} from "rxjs";
+import {PlanClient} from 'projects/libs/api/src/lib/plan-client';
+import {GetPlanRequest} from 'projects/libs/api/src/lib/dtos/get-plan-request';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlanService {
+  constructor(private readonly planClient: PlanClient) {
+  }
+
   getPlan(id: string): Observable<PlanDto> {
-    return of({
-      id: '1',
-      name: 'План на январь',
-      startDate: '2020-01-01',
-      endDate: '2020-01-31',
-      initialBalance: 1000,
-      currentBalance: 22000,
-      currentDailyBalance: 1000,
-      remains: 5000,
-      incomes: [
-        {
-          id: '1',
-          name: 'Зарплата',
-          sum: 20000,
-          date: '2020-01-01',
-        },
-        {
-          id: '2',
-          name: 'Отдадут долг',
-          sum: 2000,
-          date: '2020-01-04',
-        },
-        {
-          id: '3',
-          name: 'Кэшбэк',
-          sum: 1000,
-          date: '2020-01-14',
-        }
-      ],
-      outcomes: [
-        {
-          id: '1',
-          name: 'Интернет',
-          sum: 600,
-          date: '2020-01-01',
-        },
-        {
-          id: '2',
-          name: 'Аренда',
-          sum: 30000,
-          date: '2020-01-04',
-        },
-        {
-          id: '3',
-          name: 'Проездной',
-          sum: 1300,
-          date: '2020-01-14',
-        }
-      ]
-    }).pipe(delay(1000));
+    return this.planClient.getPlanById(new GetPlanRequest(id))
+      .pipe(
+        map(plan => {
+          return {
+            id: plan.ID,
+            name: plan.Name,
+            startDate: plan.StartDate,
+            endDate: plan.EndDate,
+            initialBalance: plan.InitialBalance,
+            currentBalance: 10000,
+            currentDailyBalance: 500,
+            remains: 500,
+            incomes: [],
+            outcomes: []
+          }
+        })
+      );
   }
 }
