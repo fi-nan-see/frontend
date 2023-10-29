@@ -12,7 +12,7 @@ import {PlanService} from "./services";
 })
 export class PlanComponent {
   @Input({required: true})
-  planId: string = '1';
+  planId: string = '';
 
   plan$: Observable<PlanDto>;
 
