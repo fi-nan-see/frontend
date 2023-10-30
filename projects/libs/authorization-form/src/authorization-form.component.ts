@@ -1,5 +1,5 @@
 import {Component, OnDestroy} from '@angular/core';
-import {Observable, Subject, takeUntil} from "rxjs";
+import {BehaviorSubject, defer, Observable, Subject, takeUntil} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import {AuthorizationState, User} from 'projects/libs/authorization';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -7,12 +7,13 @@ import {AuthorizationService} from "./authorization.service";
 
 @Component({
   selector: 'authorization-form',
-  templateUrl: `authorization-form.component.html`,
+  templateUrl:  `authorization-form.component.html`,
   styleUrls: ['authorization-form.component.css']
 })
 export class AuthorizationFormComponent implements OnDestroy {
   loginButtonClick$ = new Subject<void>();
   logoutButtonClick$ = new Subject<void>();
+  requestSending$ = new BehaviorSubject<boolean>(false);
 
   user$: Observable<User | null>;
 
@@ -32,7 +33,10 @@ export class AuthorizationFormComponent implements OnDestroy {
       _ => {
         const login = this.loginForm.value.login ?? '';
         const password = this.loginForm.value.password ?? '';
-        this.authService.authorize(login, password);
+        this.requestSending$.next(true);
+        this.authService.authorize(login, password)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(() => this.requestSending$.next(false));
       }
     );
 

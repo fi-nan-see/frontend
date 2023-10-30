@@ -2,7 +2,7 @@ import {Component, OnDestroy} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CreatePlanRequest} from 'projects/libs/api/src/lib/dtos/create-plan-request';
 import {PlanClient} from 'projects/libs/api/src/lib/plan-client';
-import {debounceTime, Subject, takeUntil, tap} from "rxjs";
+import {BehaviorSubject, debounceTime, Subject, takeUntil, tap} from "rxjs";
 import {Router} from "@angular/router";
 
 @Component({

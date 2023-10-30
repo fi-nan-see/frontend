@@ -41,16 +41,22 @@
           <input tuiTextfield/>
         </tui-input-password>
 
-        <button
-          tuiButton
-          size="s"
-          class="tui-space_right-3 tui-space_bottom-3"
-          style="width: 100%; margin-top: 10px"
-          type="submit"
-          [disabled]="loginForm.invalid"
+        <tui-loader
+          [inheritColor]="true"
+          [overlay]="true"
+          [showLoader]="(requestSending$ | async) ?? false"
         >
-          Войти
-        </button>
+          <button
+            tuiButton
+            size="s"
+            class="tui-space_right-3 tui-space_bottom-3"
+            style="width: 100%; margin-top: 10px"
+            type="submit"
+            [disabled]="loginForm.invalid"
+          >
+            Войти
+          </button>
+        </tui-loader>
       </form>
 
     </div>
