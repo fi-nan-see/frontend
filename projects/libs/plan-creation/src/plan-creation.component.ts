@@ -14,6 +14,8 @@ import {Router} from "@angular/router";
 })
 export class PlanCreationComponent implements OnDestroy {
   destroy$ = new Subject<void>();
+  loading$ = new BehaviorSubject(false);
+
   onButtonClick$ = new Subject<void>();
 
   planForm = new FormGroup({
@@ -40,9 +42,10 @@ export class PlanCreationComponent implements OnDestroy {
           takeUntil(this.destroy$),
           debounceTime(500),
           tap(async response => {
+            this.loading$.next(true);
             await router.navigate(['plan', response.id]);
           })
-        ).subscribe()
+        ).subscribe(() => this.loading$.next(false))
       })
     ).subscribe();
   }

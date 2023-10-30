@@ -36,14 +36,21 @@
           </div>
 
           <div class="tui-form__buttons">
-            <button
-              size="l"
-              tuiButton
-              type="submit"
-              class="tui-form__button"
+            <tui-loader
+              [inheritColor]="true"
+              [overlay]="true"
+              [showLoader]="(loading$ | async) ?? false"
             >
-              Создать
-            </button>
+              <button
+                size="l"
+                tuiButton
+                type="submit"
+                class="tui-form__button"
+                [disabled]="(loading$ | async) ?? false"
+              >
+                Создать
+              </button>
+            </tui-loader>
             <button
               appearance="flat"
               size="l"
