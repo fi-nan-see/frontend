@@ -38,14 +38,15 @@ export class PlanCreationComponent implements OnDestroy {
           new Date(endDate.year, endDate.month, endDate.day)
         );
 
+        this.loading$.next(true);
         planClient.createPlan(request).pipe(
           takeUntil(this.destroy$),
           debounceTime(500),
           tap(async response => {
-            this.loading$.next(true);
+            this.loading$.next(false);
             await router.navigate(['plan', response.id]);
           })
-        ).subscribe(() => this.loading$.next(false))
+        ).subscribe()
       })
     ).subscribe();
   }
