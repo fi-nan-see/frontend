@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CreatePlanRequest} from 'projects/libs/api/src/lib/dtos/create-plan-request';
 import {PlanClient} from 'projects/libs/api/src/lib/plan-client';
-import {Subject, tap} from "rxjs";
+import {debounceTime, Subject, takeUntil, tap} from "rxjs";
 import {Router} from "@angular/router";
 
 @Component({
@@ -12,7 +12,8 @@ import {Router} from "@angular/router";
     './plan-creation.component.css'
   ],
 })
-export class PlanCreationComponent {
+export class PlanCreationComponent implements OnDestroy {
+  destroy$ = new Subject<void>();
   onButtonClick$ = new Subject<void>();
 
   planForm = new FormGroup({
@@ -23,6 +24,7 @@ export class PlanCreationComponent {
 
   constructor(planClient: PlanClient, router: Router) {
     this.onButtonClick$.pipe(
+      takeUntil(this.destroy$),
       tap(() => {
         const startDate = this.planForm.value.period.from;
         const endDate = this.planForm.value.period.to;
@@ -35,11 +37,18 @@ export class PlanCreationComponent {
         );
 
         planClient.createPlan(request).pipe(
-            tap(async response => {
-              await router.navigate(['plan', response.id]);
-            })
-          ).subscribe()
+          takeUntil(this.destroy$),
+          debounceTime(500),
+          tap(async response => {
+            await router.navigate(['plan', response.id]);
+          })
+        ).subscribe()
       })
     ).subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
