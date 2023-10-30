@@ -25,8 +25,22 @@ export class PlanService {
             currentBalance: plan.current_balance,
             currentDailyBalance: plan.current_daily_balance ?? 0,
             remains: 0,
-            incomes: [],
-            outcomes: []
+            incomes: plan.incomes.map(income => {
+              return {
+                id: income.id,
+                name: income.name,
+                date: income.date,
+                sum: income.amount
+              }
+            }),
+            outcomes: plan.outcomes.map(outcome => {
+              return {
+                id: outcome.id,
+                name: outcome.name,
+                date: outcome.date,
+                sum: outcome.amount
+              }
+            })
           }
         })
       );
