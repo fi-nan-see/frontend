@@ -13,7 +13,7 @@ import {AuthorizationService} from "./authorization.service";
 export class AuthorizationFormComponent implements OnDestroy {
   loginButtonClick$ = new Subject<void>();
   logoutButtonClick$ = new Subject<void>();
-  requestSending$ = new BehaviorSubject<boolean>(false);
+  loading$ = new BehaviorSubject<boolean>(false);
 
   user$: Observable<User | null>;
 
@@ -33,10 +33,10 @@ export class AuthorizationFormComponent implements OnDestroy {
       _ => {
         const login = this.loginForm.value.login ?? '';
         const password = this.loginForm.value.password ?? '';
-        this.requestSending$.next(true);
+        this.loading$.next(true);
         this.authService.authorize(login, password)
           .pipe(takeUntil(this.destroy$))
-          .subscribe(() => this.requestSending$.next(false));
+          .subscribe(() => this.loading$.next(false));
       }
     );
 
