@@ -3,14 +3,25 @@
     class="plan"
     size="l">
     <h2 class="title">{{plan.name}}</h2>
-    <div class="plan__properties">
-      <p class="tui-island__paragraph">Период: {{plan.startDate}} — {{plan.endDate}}</p>
-      <p class="tui-island__paragraph">Баланс на начало
-        периода: {{plan.initialBalance | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
-      <p class="tui-island__paragraph">Текущий
-        баланс: {{plan.currentBalance | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
-      <p class="tui-island__paragraph">Баланс на
-        день: {{plan.currentDailyBalance | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
+    <div style="display: flex; flex-direction: row;">
+      <div class="plan__properties">
+        <p class="tui-island__paragraph">Период: {{plan.startDate}} — {{plan.endDate}}</p>
+        <p class="tui-island__paragraph">Баланс на начало
+          периода: {{plan.initialBalance | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
+        <p class="tui-island__paragraph">Текущий
+          баланс: {{plan.currentBalance | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
+        <p class="tui-island__paragraph">Баланс на
+          день: {{plan.currentDailyBalance | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
+      </div>
+
+      <button style="margin-left: auto"
+              size="l"
+              tuiButton
+              class="tui-form__button"
+              (click)="onDeleteButtonClick$.next()"
+      >
+        Удалить
+      </button>
     </div>
 
     <div class="plan__transactions">
@@ -29,8 +40,8 @@
         <h3>Запланированные доходы:</h3>
         <div class="plan__income-list">
           <income class="plan__income"
-            *ngFor="let income of plan.incomes"
-            [income]="income"
+                  *ngFor="let income of plan.incomes"
+                  [income]="income"
           >
           </income>
         </div>
