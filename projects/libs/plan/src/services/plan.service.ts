@@ -16,13 +16,13 @@ export class PlanService {
       .pipe(
         map(plan => {
           return {
-            id: plan.ID,
-            name: plan.Name,
-            startDate: plan.StartDate,
-            endDate: plan.EndDate,
-            initialBalance: plan.InitialBalance,
+            id: plan.id,
+            name: plan.name,
+            startDate: plan.start_date,
+            endDate: plan.end_date,
+            initialBalance: plan.initial_balance,
             currentBalance: plan.current_balance,
-            currentDailyBalance: plan.current_daily_balance,
+            currentDailyBalance: plan.current_daily_balance ?? 0,
             remains: 0,
             incomes: [],
             outcomes: []
