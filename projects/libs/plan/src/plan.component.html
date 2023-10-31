@@ -15,19 +15,19 @@
       </div>
 
       <tui-loader
+        style="margin-left: auto"
         [inheritColor]="true"
         [overlay]="true"
         [showLoader]="(deleting$ | async) ?? false"
       >
-        <button style="margin-left: auto"
-                size="l"
-                tuiButton
-                class="tui-form__button"
-                (click)="onDeleteButtonClick$.next()"
+        <button
+          size="l"
+          tuiButton
+          class="tui-form__button"
+          (click)="onDeleteButtonClick$.next()"
         >
           Удалить
         </button>
-        Ï
       </tui-loader>
     </div>
 
