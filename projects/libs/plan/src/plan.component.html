@@ -14,14 +14,21 @@
           день: {{plan.currentDailyBalance | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
       </div>
 
-      <button style="margin-left: auto"
-              size="l"
-              tuiButton
-              class="tui-form__button"
-              (click)="onDeleteButtonClick$.next()"
+      <tui-loader
+        [inheritColor]="true"
+        [overlay]="true"
+        [showLoader]="(deleting$ | async) ?? false"
       >
-        Удалить
-      </button>
+        <button style="margin-left: auto"
+                size="l"
+                tuiButton
+                class="tui-form__button"
+                (click)="onDeleteButtonClick$.next()"
+        >
+          Удалить
+        </button>
+        Ï
+      </tui-loader>
     </div>
 
     <div class="plan__transactions">

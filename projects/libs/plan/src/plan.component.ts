@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy} from '@angular/core';
-import {map, Observable, Subject, takeUntil, tap} from "rxjs";
+import {BehaviorSubject, map, Observable, Subject, takeUntil, tap} from "rxjs";
 import {IncomeDto, OutcomeDto, PlanDto} from "./dtos";
 import {PlanService} from "./services";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -18,7 +18,10 @@ export class PlanComponent implements OnDestroy {
   outcomes$: Observable<OutcomeDto[]>;
 
   onDeleteButtonClick$ = new Subject<void>();
+
+  deleting$ = new BehaviorSubject(false);
   destroy$ = new Subject<void>();
+
 
   constructor(planService: PlanService,
               route: ActivatedRoute,
@@ -32,6 +35,7 @@ export class PlanComponent implements OnDestroy {
     this.onDeleteButtonClick$.pipe(
       takeUntil(this.destroy$),
       tap(() => {
+        this.deleting$.next(true);
         planService.deletePlan(planId).pipe(
           takeUntil(this.destroy$),
           tap(async () => {
@@ -40,8 +44,7 @@ export class PlanComponent implements OnDestroy {
           })
         ).subscribe();
       })
-    )
-      .subscribe()
+    ).subscribe()
   }
 
   ngOnDestroy(): void {
