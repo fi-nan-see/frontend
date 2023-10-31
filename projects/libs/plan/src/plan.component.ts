@@ -38,10 +38,7 @@ export class PlanComponent implements OnDestroy {
         this.deleting$.next(true);
         planService.deletePlan(planId).pipe(
           takeUntil(this.destroy$),
-          tap(async () => {
-            console.log("adgadgag")
-            await router.navigate(['plan-list']);
-          })
+          tap(() => router.navigate(['plan-list']))
         ).subscribe();
       })
     ).subscribe()
