@@ -46,7 +46,7 @@
                 tuiButton
                 type="submit"
                 class="tui-form__button"
-                [disabled]="(loading$ | async) ?? false"
+                [disabled]="planForm.invalid || (loading$ | async) ?? false"
               >
                 Создать
               </button>

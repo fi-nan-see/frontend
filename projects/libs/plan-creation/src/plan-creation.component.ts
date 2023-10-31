@@ -4,6 +4,8 @@ import {CreatePlanRequest} from 'projects/libs/api/src/lib/dtos/create-plan-requ
 import {PlanClient} from 'projects/libs/api/src/lib/plan-client';
 import {BehaviorSubject, debounceTime, Subject, takeUntil, tap} from "rxjs";
 import {Router} from "@angular/router";
+import {TuiDayRange} from "@taiga-ui/cdk";
+import { Nullish } from 'projects/libs/utils/src';
 
 @Component({
   selector: 'lib-plan-creation',
@@ -20,16 +22,21 @@ export class PlanCreationComponent implements OnDestroy {
 
   planForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    initialBalance: new FormControl(0, [Validators.required]),
-    period: new FormControl()
+    initialBalance: new FormControl(null, [Validators.required]),
+    period: new FormControl<TuiDayRange | null>(null, [Validators.required])
   });
 
   constructor(planClient: PlanClient, router: Router) {
     this.onButtonClick$.pipe(
       takeUntil(this.destroy$),
       tap(() => {
-        const startDate = this.planForm.value.period.from;
-        const endDate = this.planForm.value.period.to;
+        const period = this.planForm.value.period;
+
+        if (!period)
+          throw Error();
+
+        const startDate = period.from;
+        const endDate = period.to;
 
         const request = new CreatePlanRequest(
           this.planForm.value.name ?? '',
