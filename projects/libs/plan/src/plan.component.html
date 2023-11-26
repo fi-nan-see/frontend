@@ -1,62 +1,65 @@
-<ng-container *ngIf="plan$ | async as plan; else skeleton">
-  <tui-island
-    class="plan"
-    size="l">
-    <h2 class="title">{{plan.name}}</h2>
-    <div style="display: flex; flex-direction: row;">
-      <div class="plan__properties">
-        <p class="tui-island__paragraph">Период: {{plan.startDate}} — {{plan.endDate}}</p>
-        <p class="tui-island__paragraph">Баланс на начало
-          периода: {{plan.initialBalance | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
-        <p class="tui-island__paragraph">Текущий
-          баланс: {{plan.currentBalance | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
-        <p class="tui-island__paragraph">Баланс на
-          день: {{plan.currentDailyBalance | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
-      </div>
+<ng-container *ngIf="loading$ | async; else skeleton">
+  <ng-container *ngIf="plan$ | async as plan; else notFound">
+    <tui-island
+      class="plan"
+      size="l">
+      <h2 class="title">{{plan.name}}</h2>
+      <div style="display: flex; flex-direction: row;">
+        <div class="plan__properties">
+          <p class="tui-island__paragraph">Период: {{plan.startDate}} — {{plan.endDate}}</p>
+          <p class="tui-island__paragraph">Баланс на начало
+            периода: {{plan.initialBalance | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
+          <p class="tui-island__paragraph">Текущий
+            баланс: {{plan.currentBalance | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
+          <p class="tui-island__paragraph">Баланс на
+            день: {{plan.currentDailyBalance | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
+        </div>
 
-      <tui-loader
-        style="margin-left: auto"
-        [inheritColor]="true"
-        [overlay]="true"
-        [showLoader]="(deleting$ | async) ?? false"
-      >
-        <button
-          size="l"
-          tuiButton
-          class="tui-form__button"
-          (click)="onDeleteButtonClick$.next()"
+        <tui-loader
+          style="margin-left: auto"
+          [inheritColor]="true"
+          [overlay]="true"
+          [showLoader]="(deleting$ | async) ?? false"
         >
-          Удалить
-        </button>
-      </tui-loader>
-    </div>
-
-    <div class="plan__transactions">
-      <div class="plan__outcomes">
-        <h3>Запланированные расходы:</h3>
-        <div class="plan__outcome-list">
-          <outcome class="plan__outcome"
-                   *ngFor="let outcome of plan.outcomes"
-                   [outcome]="outcome"
+          <button
+            size="l"
+            tuiButton
+            class="tui-form__button"
+            (click)="onDeleteButtonClick$.next()"
           >
-          </outcome>
+            Удалить
+          </button>
+        </tui-loader>
+      </div>
+
+      <div class="plan__transactions">
+        <div class="plan__outcomes">
+          <h3>Запланированные расходы:</h3>
+          <div class="plan__outcome-list">
+            <outcome class="plan__outcome"
+                     *ngFor="let outcome of plan.outcomes"
+                     [outcome]="outcome"
+            >
+            </outcome>
+          </div>
+        </div>
+
+        <div class="plan__incomes">
+          <h3>Запланированные доходы:</h3>
+          <div class="plan__income-list">
+            <income class="plan__income"
+                    *ngFor="let income of plan.incomes"
+                    [income]="income"
+            >
+            </income>
+          </div>
         </div>
       </div>
 
-      <div class="plan__incomes">
-        <h3>Запланированные доходы:</h3>
-        <div class="plan__income-list">
-          <income class="plan__income"
-                  *ngFor="let income of plan.incomes"
-                  [income]="income"
-          >
-          </income>
-        </div>
-      </div>
-    </div>
+      <p class="tui-island__paragraph">Отложено в периоде: {{plan.remains | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
+    </tui-island>
+  </ng-container>
 
-    <p class="tui-island__paragraph">Отложено в периоде: {{plan.remains | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
-  </tui-island>
 </ng-container>
 
 <ng-template #skeleton>
@@ -103,4 +106,8 @@
 
     <p class="tui-island__paragraph">Отложено в периоде: <span class="tui-skeleton">9999-99-99 - 9999-99-99</span></p>
   </tui-island>
+</ng-template>
+
+<ng-template #notFound>
+  <h1>План не найден</h1>
 </ng-template>
