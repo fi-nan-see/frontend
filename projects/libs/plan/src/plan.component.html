@@ -1,5 +1,5 @@
 <ng-container *ngIf="plan$ | async as plan; else skeleton">
-  <tui-island
+  <tui-island *ngIf="!(loadingFailed$ | async); else notFound"
     class="plan"
     size="l">
     <h2 class="title">{{plan.name}}</h2>
@@ -58,6 +58,10 @@
     <p class="tui-island__paragraph">Отложено в периоде: {{plan.remains | tuiFormatNumber}} {{'RUB' | tuiCurrency}}</p>
   </tui-island>
 </ng-container>
+
+<ng-template #notFound>
+  <h1>План не найден</h1>
+</ng-template>
 
 <ng-template #skeleton>
   <tui-island
