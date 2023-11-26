@@ -7,7 +7,6 @@ import { IncomeComponent } from './components/income/income.component';
 import { OutcomeComponent } from './components/outcome/outcome.component';
 import {TuiCurrencyPipeModule} from "@taiga-ui/addon-commerce";
 import {RouterLink} from "@angular/router";
-import {TuiLetModule} from "@taiga-ui/cdk";
 
 
 
@@ -17,20 +16,19 @@ import {TuiLetModule} from "@taiga-ui/cdk";
     IncomeComponent,
     OutcomeComponent
   ],
-    imports: [
-        AsyncPipe,
-        NgIf,
-        TuiLoaderModule,
-        TuiIslandModule,
-        NgForOf,
-        TuiCurrencyPipeModule,
-        TuiFormatNumberPipeModule,
-        TuiScrollbarModule,
-        TuiCarouselModule,
-        RouterLink,
-        TuiButtonModule,
-        TuiLetModule
-    ],
+  imports: [
+    AsyncPipe,
+    NgIf,
+    TuiLoaderModule,
+    TuiIslandModule,
+    NgForOf,
+    TuiCurrencyPipeModule,
+    TuiFormatNumberPipeModule,
+    TuiScrollbarModule,
+    TuiCarouselModule,
+    RouterLink,
+    TuiButtonModule
+  ],
   exports: [
     PlanComponent
   ]
