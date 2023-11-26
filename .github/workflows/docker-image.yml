@@ -22,3 +22,14 @@ jobs:
     - name: Push the image to the registry
       run: docker push $IMAGE_NAME
 
+  release:
+    runs-on: ubuntu-latest
+    container:
+      image: kawwik/yc:latest
+    needs: build
+
+    steps:
+      - uses: actions/checkout@v3
+      - run: yc config set token ${{secrets.YANDEX_OAUTH_TOKEN}}
+      - run: yc config set folder-id ${{secrets.FOLDER_ID}}
+      - run: yc serverless container revision deploy --image "$IMAGE_NAME" --container-name finansee-frontend --service-account-id ${{secrets.SERVICE_ACCOUNT_ID}}
