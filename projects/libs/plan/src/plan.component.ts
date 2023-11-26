@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy} from '@angular/core';
-import {BehaviorSubject, map, Observable, Subject, takeUntil, tap} from "rxjs";
+import {BehaviorSubject, catchError, map, Observable, of, share, shareReplay, Subject, takeUntil, tap} from "rxjs";
 import {IncomeDto, OutcomeDto, PlanDto} from "./dtos";
 import {PlanService} from "./services";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -13,6 +13,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class PlanComponent implements OnDestroy {
   plan$: Observable<PlanDto>;
+  loadingFailed$: Observable<boolean>;
 
   incomes$: Observable<IncomeDto[]>;
   outcomes$: Observable<OutcomeDto[]>;
@@ -27,7 +28,14 @@ export class PlanComponent implements OnDestroy {
               route: ActivatedRoute,
               router: Router) {
     const planId = route.snapshot.paramMap.get('id') ?? '';
-    this.plan$ = planService.getPlan(planId);
+    this.plan$ = planService.getPlan(planId).pipe(
+      catchError(() => of({} as PlanDto)),
+      shareReplay({bufferSize: 1, refCount: false})
+    );
+
+    this.loadingFailed$ = this.plan$.pipe(
+      map((plan) => !Object.keys(plan).length)
+    )
 
     this.incomes$ = this.plan$.pipe(map(plan => plan.incomes))
     this.outcomes$ = this.plan$.pipe(map(plan => plan.outcomes))
