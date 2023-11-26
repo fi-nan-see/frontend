@@ -6,6 +6,7 @@ import {LoginUser, LogoutUser} from "projects/libs/authorization/src/actions";
 import {AuthorizationState} from "projects/libs/authorization/src/states";
 import {Observable, Subject, tap} from "rxjs";
 import {error} from "ng-packagr/lib/utils/log";
+import { TgResponseDto } from "projects/libs/api/src/lib/dtos/tg-response.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,9 @@ export class AuthorizationService {
 
   public logout() {
     this.store.dispatch(new LogoutUser());
+  }
+
+  public authorizeTgBot(): Observable<TgResponseDto> {
+    return this.authClient.authorizeBot();
   }
 }
